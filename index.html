@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="js/libs/reveal.js-master/css/reveal.min.css">
+        <link rel="stylesheet" href="js/libs/reveal.js-master/css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="js/libs/reveal.js-master/lib/css/zenburn.css">
+
+        <link href="css/wcottawa.css" rel="stylesheet" type="text/css"/>
+
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Down with Sliders!</h1>
+                    <h1>Show them everything!</h1>
+                </section>
+                <section>
+                    <h1>What we’ll cover</h1>
+                    <div class="split">
+                        <h2 class="half fragment">Masonry</h2>
+                        <h2 class="half fragment">WP_Query</h2>
+                    </div>
+                    <p>We’ll be looking at a JavaScript library called Masonry that ships with WordPress and getting our toes wet with WP_Query, one of the most powerful tools in your WordPress arsenal.</p>
+                </section>
+                <section>
+                    <h1>Masonry</h1>
+
+                    <p class="fragment"><a href="http://masonry.desandro.com/">masonry.desandro.com/</a></p>
+                    <p class="fragment">Created by David DeSandro, a designer at Twitter</p>
+                    <p class="fragment"><a href="http://desandro.com/">desandro.com</a></p>
+
+                    <p class="fragment">Masonry has a pair of siblings named Isotope and Packery. They’re released by Metafizzy <a href="http://metafizzy.co/">http://metafizzy.co/</a></p>
+
+                </section>
+
+                <section>
+                    <section>
+                        <h1>WP_Query</h1>
+                        <p>If you’ve dived into theme files, chances are that you’ve seen WP_Query at work with functions like <code>query_posts()</code> or <code>get_posts()</code>.</p>
+                    </section>
+                    <section>
+                        <h1>WP_Query</h1>
+                        <p>The resulting data was then probably passed through <em>The Loop</em>, its output handled with functions like <code>the_title()</code>, <code>the_content()</code>, <code>the_post_thumbnail()</code>.</p>
+
+                        <p>Today, I’ll show you how you can start leveraging WP_Query to get the info you want for your own custom loops.</p>
+                    </section>
+                    <section>
+                        <h1>WP_Query ressources</h1>
+                        <p><a href="http://codex.wordpress.org/Class_Reference/WP_Query">http://codex.wordpress.org/Class_Reference/WP_Query</a></p>
+                        <a href="http://codex.wordpress.org/Function_Reference/query_posts">http://codex.wordpress.org/Function_Reference/query_posts</a>
+                        <a href="http://codex.wordpress.org/Template_Tags/get_posts">http://codex.wordpress.org/Template_Tags/get_posts</a>
+                        <a href="https://codex.wordpress.org/The_Loop">https://codex.wordpress.org/The_Loop</a>
+                    </section>
+                </section>
+
+                <section>
+                    <h1>Will it float?</h1>
+                </section>
+                <section>
+                    <div id="mondrian">
+
+                        <!-- a id="toggle-float" href="#">Toggle Float</a>
+                        <a id="toggle-size" href="#">Toggle Size</a>
+                        <a id="toggle-masonry" href="#">Toggle Masonry</a -->
+
+                        <div class="split">
+                            <div class="half">
+                            <h2>Let's layout some content</h2>
+                            <p class="fragment roll-in" data-fragment-index="1">We've grabbed some content</p>
+                            <p class="fragment fade-in">With the magic of Floats, we can make it line up, side-by-side</p>
+                            <span class="fragment fade-in" data-run="DEMOS.toggleFloat"></span>
+                            <p class="fragment">...but what if our elements don't all have the same height?</p>
+                            <span class="fragment" data-run="DEMOS.toggleSize"></span>
+                            <p class="fragment">Gaps!</p>
+                            <aside class="notes">
+                                Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+                            </aside>
+                            <p class="fragment">That's where Masonry comes in</p>
+                            <span class="fragment" data-run="DEMOS.toggleMasonry"></span>
+                            <span class="fragment" data-run="DEMOS.toggleMasonryColour"></span>
+
+                        </div>
+
+                        <div id="masonry-container" class="fragment half clearfix" data-fragment-index="2">
+                            <div class="box w3 h1 no-size">3x1</div>
+                            <div class="box w3 h1 no-size">3x1</div>
+                            <div class="box w1 h4 no-size">1x4</div>
+                            <div class="box w3 h2 no-size">3x2</div>
+                            <div class="box w1 h4 no-size">1x4</div>
+                            <div class="box w1 h4 no-size">1x4</div>
+                            <div class="box w4 h4 no-size">4x4</div>
+                            <div class="box w2 h4 no-size">2x4</div>
+                            <div class="box w1 h5 no-size">1x5</div>
+                            <div class="box w4 h2 no-size">4x2</div>
+                            <div class="box w2 h2 no-size">2x2</div>
+                            <div class="box w1 h3 no-size">1x3</div>
+                            <div class="box w2 h1 no-size">2x1</div>
+                            <div class="box w1 h3 no-size">1x3</div>
+                            <div class="box w1 h3 no-size">1x3</div>
+                            <div class="box w1 h3 no-size">1x3</div>
+                            <div class="box w2 h2 no-size">2x2</div>
+                            <div class="box w2 h3 no-size">2x3</div>
+                            <div class="box w1 h2 no-size">1x2</div>
+                            <div class="box w2 h2 no-size">2x2</div>
+                            <div class="box w2 h1 no-size">2x1</div>
+                            <div class="box w3 h1 no-size">3x1</div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <section>Vertical Slide 1</section>
+                    <section>Vertical Slide 2</section>
+                </section>
+            </div>
+        </div>
+
+        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
+        <script src="js/libs/reveal.js-master/js/min/reveal.min.js"></script>
+        <script src="js/libs/masonry/masonry.pkgd.min.js"></script>
+
+        <script src="js/all_scripts.js"></script>
+    </body>
+</html>

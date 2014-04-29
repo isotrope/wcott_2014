@@ -1,0 +1,13 @@
+/* Clearfix
+http://css-tricks.com/snippets/css/clear-fix/ */
+.clearfix:after,
+.split:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+* html .clearfix, * html .split  { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix, *:first-child+html .split { zoom: 1; } /* IE7 */

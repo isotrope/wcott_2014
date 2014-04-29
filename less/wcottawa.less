@@ -1,0 +1,208 @@
+/*
+
+       oy:                                                            :yo
+       sNNNs:                                                      :sNNNs
+       sNNNNNms:                                                :smNNNNNs
+       sNNNNNNNNms-                                          -smNNNNNNNNs
+       sNNNNNNNNNNNmo-                                    -omNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNdo.                              .odNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNd+.                        .+dNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNd+.                  .+dNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNh+`            `+hNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNh/`      `/hNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNy/``/yNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       +NNNNNN-...................yNNNNNNNNNNy...................-NNNNNN+
+       -NNNNNN+                   mNNNNNNNNNNm`                  +NNNNNN-
+        hNNNNNN:                 yNNNNNNNNNNNNy                 :NNNNNNh
+        `mNNNNNNs`             :dNNNNNNmmNNNNNNd:             `oNNNNNNm`
+         `hNNNNNNNy/`       -+dNNNNNNNd`.dNNNNNNNd+-       `/yNNNNNNNh`
+           +mNNNNNNNNNdhhddNNNNNNNNNN+    +NNNNNNNNNNmdhhdNNNNNNNNNm+
+            `+dNNNNNNNNNNNNNNNNNNNd+`      `+dNNNNNNNNNNNNNNNNNNNd+`
+               .+ymNNNNNNNNNNNmh+.            .+hmNNNNNNNNNNNmy+.
+                   `-:/+++/:-`                    `-:/+++/:-`
+
+            WordCamp Ottawa : Down with Sliders! Show them everything!
+            Author: Michal Bluma (clients@isotrope.net)
+
+*/
+
+@import "lib/elements/elements.less";
+@import "html5reset-1.6.1.less";
+@import "clearfix.less";
+@import "borderbox.less";
+@import "font_clear_sans.less";
+
+
+/* Vars
+______________________________________________________________________________*/
+
+@gray: #666;
+@yellow: yellow;
+
+
+/* Utils
+______________________________________________________________________________*/
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
+}
+
+
+body {
+    background: radial-gradient(circle farthest-corner at center center , #555A5F 0%, #1C1E20 100%) repeat scroll 0 0 #2B2B2B;
+    font-family: 'clear_sansregular', sans-serif;
+    text-align: center;
+}
+
+a {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    color: @yellow;
+    padding: 5px;
+    text-decoration: none;
+}
+
+a:hover,
+a.active {
+    background: @yellow;
+    color: #666;
+}
+
+.split {
+    .half {
+        float: left;
+        width: 50%;
+    }
+}
+
+
+/* reveal.js overrides
+______________________________________________*/
+
+.reveal {
+    font-family: 'Lato', sans-serif;
+}
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    font-family: "League Gothic", Impact, sans-serif;
+}
+
+
+
+#mondrian {
+    @box_unit: 30px;
+
+    .content {
+        float: left;
+        max-width: 50%;
+    }
+
+    #masonry-container {
+        float: right;
+        margin: 50px auto;
+        width: @box_unit * 10;
+
+        .box {
+
+
+            background: @yellow;
+            border: 2px solid @gray;
+            color: transparent;
+            //margin: 1px;
+            //float: left;
+            text-align: center;
+
+
+
+            .transition(500ms, ease-in-out);
+
+
+            &.w1 {
+                width: @box_unit * 1;
+            }
+
+            &.w2 {
+                width: @box_unit * 2;
+            }
+
+            &.w3 {
+                width: @box_unit * 3;
+            }
+
+            &.w4 {
+                width: @box_unit * 4;
+            }
+
+            &.h1 {
+                height: @box_unit * 1;
+            }
+
+            &.h2 {
+                height: @box_unit * 2;
+            }
+
+            &.h3 {
+                height: @box_unit * 3;
+            }
+
+            &.h4 {
+                height: @box_unit * 4;
+            }
+
+            &.h5 {
+                height: @box_unit * 5;
+            }
+
+            &.h1,
+            &.h2,
+            &.h3,
+            &.h4,
+            &.h5 {
+                &.no-size {
+                    height: @box_unit * 1;
+                    //width: @box_unit * 1;
+                }
+            }
+
+            &.floated {
+                float: left;
+            }
+
+            &.colour {
+                border: 2px solid black;
+                background: white;
+
+                &.yellow {
+                    background: #ffff01;
+                }
+                &.red{
+                    background: #fe0000;
+                }
+                &.blue{
+                    background: #0000fe;
+                }
+            }
+
+
+        } //.box
+    } //#masonry-container
+} //#mondrian
