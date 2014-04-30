@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+        <link href="css/wcottawa.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body id="mondrian">
+
+        <a id="toggle-float" href="#">Toggle Float</a>
+        <a id="toggle-size" href="#">Toggle Size</a>
+        <a id="toggle-masonry" href="#">Toggle Masonry</a>
+
+        <div id="masonry-container" class="clearfix">
+            <div class="box w3 h1 no-size">3x1</div>
+            <div class="box w3 h1 no-size">3x1</div>
+            <div class="box w1 h4 no-size">1x4</div>
+            <div class="box w3 h2 no-size">3x2</div>
+            <div class="box w1 h4 no-size">1x4</div>
+            <div class="box w1 h4 no-size">1x4</div>
+            <div class="box w4 h4 no-size">4x4</div>
+            <div class="box w2 h4 no-size">2x4</div>
+            <div class="box w1 h5 no-size">1x5</div>
+            <div class="box w4 h2 no-size">4x2</div>
+            <div class="box w2 h2 no-size">2x2</div>
+            <div class="box w1 h3 no-size">1x3</div>
+            <div class="box w2 h1 no-size">2x1</div>
+            <div class="box w1 h3 no-size">1x3</div>
+            <div class="box w1 h3 no-size">1x3</div>
+            <div class="box w1 h3 no-size">1x3</div>
+            <div class="box w2 h2 no-size">2x2</div>
+            <div class="box w2 h3 no-size">2x3</div>
+            <div class="box w1 h2 no-size">1x2</div>
+            <div class="box w2 h2 no-size">2x2</div>
+            <div class="box w2 h1 no-size">2x1</div>
+            <div class="box w3 h1 no-size">3x1</div>
+        </div>
+
+        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
+        <script src="js/libs/masonry/masonry.pkgd.min.js"></script>
+        <script>
+
+            $( document ).ready( function( ) {
+                DEMOS.toggleSize( );
+                DEMOS.toggleFloat( );
+                DEMOS.toggleMasonry( );
+            } );
+            var DEMOS = { };
+            DEMOS.toggleMasonry = function( ) {
+                var $toggler = $( '#toggle-masonry' ),
+                    $container = $( '#masonry-container' ),
+                    msnry;
+                $toggler.on( 'click', function( e ) {
+                    e.preventDefault( );
+                    var $this = $( this ),
+                        isActive = $this.hasClass( 'active' );
+                    if ( ! isActive ) {
+                        console.log( 'Masonry on' );
+                        $container.masonry( {
+                            columnWidth: 30,
+                            itemSelector: '.box'
+                        } );
+                        $this.addClass( 'active' );
+                    } else {
+                        console.log( 'Masonry off' );
+                        $container.masonry( 'destroy' );
+                        $this.removeClass( 'active' );
+                    }
+
+                } );
+            }; //DEMO.toggleMasonry = function() {
+
+
+            DEMOS.toggleSize = function( ) {
+                var $boxes = $( '#masonry-container' ).find( '.box' ),
+                    $toggler = $( '#toggle-size' );
+                $toggler.on( 'click', function( e ) {
+                    e.preventDefault( );
+                    $boxes.toggleClass( 'no-size' );
+                    $( this ).toggleClass( 'active' );
+                } );
+            };
+            DEMOS.toggleFloat = function( ) {
+                var $boxes = $( '#masonry-container' ).find( '.box' ),
+                    $toggler = $( '#toggle-float' );
+
+                $toggler.on( 'click', function( e ) {
+                    e.preventDefault( );
+                    $boxes.toggleClass( 'floated' );
+                    $( this ).toggleClass( 'active' );
+                } );
+            };
+
+        </script>
+    </body>
+</html>

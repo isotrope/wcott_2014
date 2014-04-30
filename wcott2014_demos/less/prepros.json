@@ -1,0 +1,108 @@
+{
+  "id": "7f2b4870",
+  "cfgVersion": 1,
+  "name": "WC Ottawa",
+  "files": {
+    "e27556e0": {
+      "config": {
+        "autoCompile": true,
+        "compress": true,
+        "lineNumbers": true,
+        "strictMath": false,
+        "strictUnits": false,
+        "autoprefixer": false,
+        "autoprefixerBrowsers": "",
+        "cleancss": true
+      },
+      "id": "e27556e0",
+      "pid": "7f2b4870",
+      "name": "wcottawa.less",
+      "type": "Less",
+      "input": "wcottawa.less",
+      "customOutput": "E:\\_Work\\_DropBox\\Dropbox\\wcott2014\\wcott2014_demos\\public_html\\css\\wcottawa.css"
+    },
+    "0d5bc06e": {
+      "config": {
+        "autoCompile": true,
+        "sanitize": false,
+        "gfm": true
+      },
+      "id": "0d5bc06e",
+      "pid": "7f2b4870",
+      "name": "README.md",
+      "type": "MD",
+      "input": "lib\\elements\\README.md"
+    }
+  },
+  "imports": {
+    "ec17b66b": {
+      "id": "ec17b66b",
+      "pid": "7f2b4870",
+      "path": "html5reset-1.6.1.less",
+      "parents": [
+        "e27556e0"
+      ]
+    },
+    "5c5106f6": {
+      "id": "5c5106f6",
+      "pid": "7f2b4870",
+      "path": "lib\\elements\\elements.less",
+      "parents": [
+        "e27556e0"
+      ]
+    },
+    "51c1714e": {
+      "id": "51c1714e",
+      "pid": "7f2b4870",
+      "path": "clearfix.less",
+      "parents": [
+        "e27556e0"
+      ]
+    },
+    "831fcabb": {
+      "id": "831fcabb",
+      "pid": "7f2b4870",
+      "path": "borderbox.less",
+      "parents": [
+        "e27556e0"
+      ]
+    },
+    "d0d6d50b": {
+      "id": "d0d6d50b",
+      "pid": "7f2b4870",
+      "path": "font_clear_sans.less",
+      "parents": [
+        "e27556e0"
+      ]
+    }
+  },
+  "images": {},
+  "config": {
+    "watch": true,
+    "liveRefresh": true,
+    "liveRefreshDelay": 0,
+    "filterPatterns": "",
+    "useCustomServer": false,
+    "customServerUrl": "",
+    "cssPath": "css",
+    "jsPath": "js",
+    "htmlPath": "html",
+    "minJsPath": "min",
+    "htmlExtension": ".html",
+    "cssPathType": "REPLACE_TYPE",
+    "htmlPathType": "REPLACE_TYPE",
+    "jsPathType": "REPLACE_TYPE",
+    "minJsPathType": "RELATIVE_FILEDIR",
+    "htmlTypes": "jade, haml, slim, markdown, md",
+    "cssTypes": "less, sass, stylus, scss, styl",
+    "jsTypes": "coffee, coffeescript, coffeescripts, ls, livescript, livescripts",
+    "cssPreprocessorPath": "",
+    "htmlPreprocessorPath": "",
+    "jsPreprocessorPath": "",
+    "minJsPreprocessorPath": "",
+    "autoprefixerBrowsers": "",
+    "ftpType": "FTP",
+    "ftpPassword": "",
+    "ftpUsername": ""
+  }
+}
