@@ -2,11 +2,44 @@
 
 Custom CSS for our WordCamp Ottawa theme
 
+       oy:                                                            :yo
+       sNNNs:                                                      :sNNNs
+       sNNNNNms:                                                :smNNNNNs
+       sNNNNNNNNms-                                          -smNNNNNNNNs
+       sNNNNNNNNNNNmo-                                    -omNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNdo.                              .odNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNd+.                        .+dNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNd+.                  .+dNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNh+`            `+hNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNh/`      `/hNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNy/``/yNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       +NNNNNN-...................yNNNNNNNNNNy...................-NNNNNN+
+       -NNNNNN+                   mNNNNNNNNNNm`                  +NNNNNN-
+        hNNNNNN:                 yNNNNNNNNNNNNy                 :NNNNNNh
+        `mNNNNNNs`             :dNNNNNNmmNNNNNNd:             `oNNNNNNm`
+         `hNNNNNNNy/`       -+dNNNNNNNd`.dNNNNNNNd+-       `/yNNNNNNNh`
+           +mNNNNNNNNNdhhddNNNNNNNNNN+    +NNNNNNNNNNmdhhdNNNNNNNNNm+
+            `+dNNNNNNNNNNNNNNNNNNNd+`      `+dNNNNNNNNNNNNNNNNNNNd+`
+               .+ymNNNNNNNNNNNmh+.            .+hmNNNNNNNNNNNmy+.
+                   `-:/+++/:-`                    `-:/+++/:-`
+
+
 */
+
+@main_colour: #404040;
+@base_font_size : 16px;
 
 body {
     //background: #666;
     font-family: 'Source Sans Pro', sans-serif;
+    font-size: @base_font_size;
+    color: @main_colour;
 }
 
 h1,
@@ -19,26 +52,149 @@ h6
     font-family: 'Oswald', sans-serif;
 }
 
+h1 {font-size: @base_font_size * 2.5; }
+h2 {font-size: @base_font_size * 2; }
+h3 {font-size: @base_font_size * 1.625; }
+h4, h5, h6 {font-size: @base_font_size * 1.125; }
+
+
+a, a:hover, a:active, a:visited {
+    color: @main_colour;
+    text-decoration: none;
+}
+
+
+.btn {
+    .rounded(5px);
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+#masthead {
+    background: yellow;
+}
+
+.site-title {
+    a {
+        &,
+        &:hover,
+            &:active,
+            &:visited {
+            color: @main_colour;
+            text-decoration: none;
+        }
+    }
+} // .site-title
+
+
+.site-title,
+.site-description {
+    text-transform: uppercase;
+}
+
+#site-navigation {
+    float: none;
+
+    a {
+        .rounded(5px);
+        .transition(100ms, ease-in-out);
+
+        background: yellow;
+        border: 1px solid gray;
+        margin-right: 6px;
+        padding: 6px 12px;
+
+        &:hover {
+            background: gray;
+            border-color: yellow;
+            color: yellow;
+        }
+    }
+
+    .current-menu-item {
+        a {
+            background: gray;
+            border-color: yellow;
+            color: yellow;
+        }
+    }
+}
+
+.site-branding {
+    padding: 20px;
+    text-align: center;
+}
+
+.inner {
+    margin: 0 auto;
+    max-width: 100%;
+    width: 1440px;
+}
+
+.page-main-content {
+    background: yellow;
+    padding: 20px;
+}
+
+.demo-step-togglers {
+    text-align: center;
+}
+
+#btn-add-step {
+    background: yellow;
+    border: 1px solid gray;
+    color: gray;
+    margin: 12px auto;
+    padding: 6px 12px;
+
+    &:hover,
+        &:active {
+        background: gray;
+        border-color: yellow;
+        color: yellow;
+    }
+}
 
 .ten-latest-posts
 {
     .transition(500ms, ease-in-out);
 
-    border: 1px solid yellow;
+    background: yellow;
+    border: 3px solid gray;
     margin-bottom: 0;
     padding: 10px;
     width: 100%;
+
 } //.ten-latest-posts
 
+.bg-gray {
+    background: gray;
+}
 
 .section-ten-latest-posts {
+
 
     &.step-1 {
         .ten-latest-posts
         {
             width: 25%;
-        } //.ten-latest-posts
-    }
+
+            @media all and (max-width: 960px)  {
+                width: 33%;
+            }
+
+            @media all and (max-width: 768px)  {
+                width: 50%;
+            }
+
+            @media all and (max-width: 640px)  {
+                width: 100%;
+            }
+        }//.ten-latest-posts
+
+
+    }  //&.step-1
+
 
     &.step-2 {
         .ten-latest-posts

@@ -740,9 +740,39 @@ object {
 
 Custom CSS for our WordCamp Ottawa theme
 
+       oy:                                                            :yo
+       sNNNs:                                                      :sNNNs
+       sNNNNNms:                                                :smNNNNNs
+       sNNNNNNNNms-                                          -smNNNNNNNNs
+       sNNNNNNNNNNNmo-                                    -omNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNdo.                              .odNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNd+.                        .+dNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNd+.                  .+dNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNh+`            `+hNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNh/`      `/hNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNy/``/yNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       +NNNNNN-...................yNNNNNNNNNNy...................-NNNNNN+
+       -NNNNNN+                   mNNNNNNNNNNm`                  +NNNNNN-
+        hNNNNNN:                 yNNNNNNNNNNNNy                 :NNNNNNh
+        `mNNNNNNs`             :dNNNNNNmmNNNNNNd:             `oNNNNNNm`
+         `hNNNNNNNy/`       -+dNNNNNNNd`.dNNNNNNNd+-       `/yNNNNNNNh`
+           +mNNNNNNNNNdhhddNNNNNNNNNN+    +NNNNNNNNNNmdhhdNNNNNNNNNm+
+            `+dNNNNNNNNNNNNNNNNNNNd+`      `+dNNNNNNNNNNNNNNNNNNNd+`
+               .+ymNNNNNNNNNNNmh+.            .+hmNNNNNNNNNNNmy+.
+                   `-:/+++/:-`                    `-:/+++/:-`
+
+
 */
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: #404040;
 }
 h1,
 h2,
@@ -752,18 +782,134 @@ h5,
 h6 {
   font-family: 'Oswald', sans-serif;
 }
+h1 {
+  font-size: 40px;
+}
+h2 {
+  font-size: 32px;
+}
+h3 {
+  font-size: 26px;
+}
+h4,
+h5,
+h6 {
+  font-size: 18px;
+}
+a,
+a:hover,
+a:active,
+a:visited {
+  color: #404040;
+  text-decoration: none;
+}
+.btn {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 6px 12px;
+}
+#masthead {
+  background: yellow;
+}
+.site-title a,
+.site-title a:hover,
+.site-title a:active,
+.site-title a:visited {
+  color: #404040;
+  text-decoration: none;
+}
+.site-title,
+.site-description {
+  text-transform: uppercase;
+}
+#site-navigation {
+  float: none;
+}
+#site-navigation a {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: all 100ms ease-in-out;
+  -moz-transition: all 100ms ease-in-out;
+  -o-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
+  background: yellow;
+  border: 1px solid gray;
+  margin-right: 6px;
+  padding: 6px 12px;
+}
+#site-navigation a:hover {
+  background: gray;
+  border-color: yellow;
+  color: yellow;
+}
+#site-navigation .current-menu-item a {
+  background: gray;
+  border-color: yellow;
+  color: yellow;
+}
+.site-branding {
+  padding: 20px;
+  text-align: center;
+}
+.inner {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 1440px;
+}
+.page-main-content {
+  background: yellow;
+  padding: 20px;
+}
+.demo-step-togglers {
+  text-align: center;
+}
+#btn-add-step {
+  background: yellow;
+  border: 1px solid gray;
+  color: gray;
+  margin: 12px auto;
+  padding: 6px 12px;
+}
+#btn-add-step:hover,
+#btn-add-step:active {
+  background: gray;
+  border-color: yellow;
+  color: yellow;
+}
 .ten-latest-posts {
   -webkit-transition: all 500ms ease-in-out;
   -moz-transition: all 500ms ease-in-out;
   -o-transition: all 500ms ease-in-out;
   transition: all 500ms ease-in-out;
-  border: 1px solid yellow;
+  background: yellow;
+  border: 3px solid gray;
   margin-bottom: 0;
   padding: 10px;
   width: 100%;
 }
+.bg-gray {
+  background: gray;
+}
 .section-ten-latest-posts.step-1 .ten-latest-posts {
   width: 25%;
+}
+@media all and (max-width: 960px) {
+  .section-ten-latest-posts.step-1 .ten-latest-posts {
+    width: 33%;
+  }
+}
+@media all and (max-width: 768px) {
+  .section-ten-latest-posts.step-1 .ten-latest-posts {
+    width: 50%;
+  }
+}
+@media all and (max-width: 640px) {
+  .section-ten-latest-posts.step-1 .ten-latest-posts {
+    width: 100%;
+  }
 }
 .section-ten-latest-posts.step-2 .ten-latest-posts {
   float: left;
