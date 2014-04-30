@@ -124,12 +124,15 @@ and open the template in the editor.
                 </section>
                 <section>
                     <section  data-transition="none">
-                        <pre><code data-trim>
-(def lazy-fib
-
-   [0 1]
-
-        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+                        <pre><code class="language-php" data-trim>
+$args = array(
+    'ignore_sticky_posts' => true,  // If there are sticky posts, show them first
+    'order' => 'DESC',              // Which order should we use?
+    'orderby' => 'date',            // What are we ordering by?
+    'posts_per_page' => 10,         // How many posts do we want?
+    'post_type' => 'post',          // What type do we want? ('post', 'page', 'something_custom', ...)
+    'post_status' => 'publish',     // What status(es) are we ok with? (could be 'publish', 'pending', 'draft', ...)
+    );
                                     </code></pre>
                     </section>
                     <section  data-transition="none">

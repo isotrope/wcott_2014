@@ -1,0 +1,54 @@
+/*
+
+Custom CSS for our WordCamp Ottawa theme
+
+*/
+
+body {
+    //background: #666;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+    font-family: 'Oswald', sans-serif;
+}
+
+
+.ten-latest-posts
+{
+    .transition(500ms, ease-in-out);
+
+    border: 1px solid yellow;
+    margin-bottom: 0;
+    padding: 10px;
+    width: 100%;
+} //.ten-latest-posts
+
+
+.section-ten-latest-posts {
+
+    &.step-1 {
+        .ten-latest-posts
+        {
+            width: 25%;
+        } //.ten-latest-posts
+    }
+
+    &.step-2 {
+        .ten-latest-posts
+        {
+            float: left;
+        } //.ten-latest-posts
+    }
+
+} // .section-ten-latest-posts
+
+
+
+
