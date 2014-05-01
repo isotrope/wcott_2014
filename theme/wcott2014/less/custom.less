@@ -63,6 +63,10 @@ a, a:hover, a:active, a:visited {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 
 .btn {
     .rounded(5px);
@@ -204,3 +208,73 @@ a, a:hover, a:active, a:visited {
     }
 
 } // .section-ten-latest-posts
+
+
+
+.section-fifteen-latest-books {
+
+    color: yellow;
+
+     a {
+        &,
+        &:hover,
+            &:active,
+            &:visited {
+            color: yellow;
+
+        }
+    }
+
+    .attachment-book-cover {
+        max-width: 100%;
+    }
+
+    .book-thumbnail {
+
+        a  {
+
+        display: inline-block;
+        max-width: 100%;
+
+        }
+
+        img {
+        .drop-shadow(4px, 3px, 15px, 0.7);
+        max-width: 100%;
+        }
+    }
+
+    .book {
+        padding: 30px;
+    }
+
+    &.step-1 {
+        .book
+        {
+            width: 25%;
+
+            @media all and (max-width: 960px)  {
+                width: 33%;
+            }
+
+            @media all and (max-width: 768px)  {
+                width: 50%;
+            }
+
+            @media all and (max-width: 640px)  {
+                width: 100%;
+
+                padding: 0;
+            }
+        }//.ten-latest-posts
+
+
+    }  //&.step-1
+
+    &.step-2 {
+        .book
+        {
+            float: left;
+        } //.ten-latest-posts
+    }
+} //.section-fifteen-latest-books

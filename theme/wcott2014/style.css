@@ -803,6 +803,9 @@ a:visited {
   color: #404040;
   text-decoration: none;
 }
+a:hover {
+  text-decoration: underline;
+}
 .btn {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -912,6 +915,53 @@ a:visited {
   }
 }
 .section-ten-latest-posts.step-2 .ten-latest-posts {
+  float: left;
+}
+.section-fifteen-latest-books {
+  color: yellow;
+}
+.section-fifteen-latest-books a,
+.section-fifteen-latest-books a:hover,
+.section-fifteen-latest-books a:active,
+.section-fifteen-latest-books a:visited {
+  color: yellow;
+}
+.section-fifteen-latest-books .attachment-book-cover {
+  max-width: 100%;
+}
+.section-fifteen-latest-books .book-thumbnail a {
+  display: inline-block;
+  max-width: 100%;
+}
+.section-fifteen-latest-books .book-thumbnail img {
+  -webkit-box-shadow: 4px 3px 15px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 4px 3px 15px rgba(0, 0, 0, 0.7);
+  box-shadow: 4px 3px 15px rgba(0, 0, 0, 0.7);
+  max-width: 100%;
+}
+.section-fifteen-latest-books .book {
+  padding: 30px;
+}
+.section-fifteen-latest-books.step-1 .book {
+  width: 25%;
+}
+@media all and (max-width: 960px) {
+  .section-fifteen-latest-books.step-1 .book {
+    width: 33%;
+  }
+}
+@media all and (max-width: 768px) {
+  .section-fifteen-latest-books.step-1 .book {
+    width: 50%;
+  }
+}
+@media all and (max-width: 640px) {
+  .section-fifteen-latest-books.step-1 .book {
+    width: 100%;
+    padding: 0;
+  }
+}
+.section-fifteen-latest-books.step-2 .book {
   float: left;
 }
 /*# sourceMappingURL=style.css.map */

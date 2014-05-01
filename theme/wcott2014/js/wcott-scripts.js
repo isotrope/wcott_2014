@@ -21,7 +21,7 @@
         init: function() {
             var _this = WCOTT.latestPostsSteps;
 
-            _this.$section = $( '.section-ten-latest-posts' );
+            _this.$section = $( '.section-ten-latest-posts, .section-fifteen-latest-books' );
             _this.$toggler = $( '#btn-add-step' );
             _this.iCurrStep = 0;
             _this.iMaxStep = 3;
