@@ -104,6 +104,7 @@ DEMOS.toggleFloat = function( ) {
 
 function revealInit() {
     Reveal.initialize( {
+        width: 1080,
         // Display controls in the bottom right corner
         controls: true,
         // Display a presentation progress bar

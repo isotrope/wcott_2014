@@ -48,6 +48,7 @@ get_header();
 
                         if ( $post_thumbnail ) {
                             array_push( $post_class, $post_thumbnail );
+                            
                         }
                         ?>
                         <article id="post-<?php the_ID(); ?>" <?php post_class( $post_class ); ?>>
@@ -73,7 +74,7 @@ get_header();
 
             <?php else: ?>
                 <div class="inner">
-                    <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+                    <p><?php _e( 'Sorry, no posts matched your criteria.', 'wcott2014' ); ?></p>
                 </div>
             <?php endif; ?>
         </div><!-- .bg-gray -->

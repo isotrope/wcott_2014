@@ -128,3 +128,46 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+
+
+
+/*
+
+
+       oy:                                                            :yo
+       sNNNs:                                                      :sNNNs
+       sNNNNNms:                                                :smNNNNNs
+       sNNNNNNNNms-                                          -smNNNNNNNNs
+       sNNNNNNNNNNNmo-                                    -omNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNdo.                              .odNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNd+.                        .+dNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNd+.                  .+dNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNh+`            `+hNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNh/`      `/hNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNy/``/yNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       sNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNs
+       +NNNNNN-...................yNNNNNNNNNNy...................-NNNNNN+
+       -NNNNNN+                   mNNNNNNNNNNm`                  +NNNNNN-
+        hNNNNNN:                 yNNNNNNNNNNNNy                 :NNNNNNh
+        `mNNNNNNs`             :dNNNNNNmmNNNNNNd:             `oNNNNNNm`
+         `hNNNNNNNy/`       -+dNNNNNNNd`.dNNNNNNNd+-       `/yNNNNNNNh`
+           +mNNNNNNNNNdhhddNNNNNNNNNN+    +NNNNNNNNNNmdhhdNNNNNNNNNm+
+            `+dNNNNNNNNNNNNNNNNNNNd+`      `+dNNNNNNNNNNNNNNNNNNNd+`
+               .+ymNNNNNNNNNNNmh+.            .+hmNNNNNNNNNNNmy+.
+                   `-:/+++/:-`                    `-:/+++/:-`
+
+
+*/
+
+add_theme_support( 'post-thumbnails');
+
+/**
+ * Load our Book Custom Post Type funcitonality
+ */
+require get_template_directory() . '/inc/cpt-book.php';
