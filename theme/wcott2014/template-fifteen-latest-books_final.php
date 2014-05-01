@@ -1,7 +1,7 @@
 <?php
 /*
- * Template Name: 15 latest books
- * Description: Page template that displays the 15 newest books, by publication history
+ * Template Name: 15 latest books - with a twist
+ * Description: Page template that displays the 15 newest books, by publication history with a slight effect added
  */
 get_header();
 ?>
