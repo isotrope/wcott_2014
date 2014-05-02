@@ -113,7 +113,6 @@ DEMOS.toggleMondrian = function( ) {
 function revealInit() {
     Reveal.initialize( {
         width: 1080,
-        maxScale: 1.25,
 
         // Display controls in the bottom right corner
         controls: true,

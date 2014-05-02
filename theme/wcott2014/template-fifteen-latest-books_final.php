@@ -41,7 +41,7 @@ get_header();
 
             <?php if ( $the_query->have_posts() ) : ?>
                 <section class="section-fifteen-latest-books-twist inner clear">
-                    <ul id="bk-list" class="bk-list clearfix">
+                    <ul id="bk-list" class="bk-list clear">
                         <!-- the loop -->
                         <?php
                         while ( $the_query->have_posts() ) {
