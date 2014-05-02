@@ -215,7 +215,7 @@ a:hover {
 
     color: yellow;
 
-     a {
+    a {
         &,
         &:hover,
             &:active,
@@ -233,14 +233,14 @@ a:hover {
 
         a  {
 
-        display: inline-block;
-        max-width: 100%;
+            display: inline-block;
+            max-width: 100%;
 
         }
 
         img {
-        .drop-shadow(4px, 3px, 15px, 0.7);
-        max-width: 100%;
+            .drop-shadow(4px, 3px, 15px, 0.7);
+            max-width: 100%;
         }
     }
 
@@ -278,3 +278,27 @@ a:hover {
         } //.ten-latest-posts
     }
 } //.section-fifteen-latest-books
+
+
+.bk-list {
+    margin: 25px 0 0 0 ;
+
+    & > li        {
+        width: 25%;
+
+
+        @media all and (max-width: 960px)  {
+            width: 33%;
+        }
+
+        @media all and (max-width: 768px)  {
+            width: 50%;
+        }
+
+        @media all and (max-width: 640px)  {
+            width: 100%;
+
+            padding: 0;
+        }
+    }
+}

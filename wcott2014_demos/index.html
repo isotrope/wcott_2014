@@ -93,6 +93,8 @@ and open the template in the editor.
                                 <p class="fragment">That's where Masonry comes in</p>
                                 <span class="fragment" data-run="DEMOS.toggleMasonry"></span>
                                 <span class="fragment" data-run="DEMOS.toggleMasonryColour"></span>
+                                <span class="fragment" data-run="DEMOS.toggleMondrian"></span>
+                                <span class="fragment" data-run="DEMOS.toggleMondrian"></span>
 
                             </div>
 
@@ -335,7 +337,7 @@ $the_query = new WP_Query( $args ); ?>
                             </code></pre>
                         <div class="fragment">
                             <p>Lastly, within the Loop (if we found posts), we also have a little function called <code>wp_reset_postdata()</code></p>
-                           <pre><code class="language-php" data-trim>
+                            <pre><code class="language-php" data-trim>
   &lt;?php wp_reset_postdata(); ?>
                             </code></pre>
                         </div>
@@ -346,11 +348,11 @@ $the_query = new WP_Query( $args ); ?>
                 <section>
 
                     <section>
-                    <h1>Are you going to show me those 10 posts or what??!?</h1>
+                        <h1>Are you going to show me those 10 posts or what??!?</h1>
                     </section>
                     <section>
                         <h2>Let's beef up that last loop a bit.</h2>
-                 <img class="fragment" src="img/10postloop_1.png" />
+                        <img class="fragment" src="img/10postloop_1.png" />
                     </section>
                     <section>
                         <h2>Let's look at the result:</h2>
@@ -361,7 +363,888 @@ $the_query = new WP_Query( $args ); ?>
                         <iframe src="http://localhost/wcott2014/ten-latest-posts/" width="100%" height="650px"></iframe>
                     </section>
                 </section>
+                <section>
+                    <h2>A few additional ressources for WP_Query:</h2>
+                    <ul>
+                        <li><a href="http://codex.wordpress.org/Class_Reference/WP_Query">http://codex.wordpress.org/Class_Reference/WP_Query</a></li>
+                        <li>A WP_Query Generator : <a href="http://generatewp.com/wp_query/">http://generatewp.com/wp_query/</a></li>
+                    </ul>
+                </section>
 
+
+                <section>
+                    <section>
+                        <h3>Let’s use what we’ve learned to output a series of elements of a Custom Post Type (CPT).</h3>
+                        <p class="fragment">Unfortunately, we don't really have time to discuss what Custom Post Type are.</p>
+                        <p class="fragment">In the WordPress world, we tend to think of <em>posts</em> and <em>pages</em>.</p>
+                        <p class="fragment">In reality, we can store information in any type of CPT.</p>
+                    </section>
+                    <section>
+                        <p>In our case, we’ll be using <em>Books</em> as an example.</p>
+                        <p class="fragment">Our <em>Books</em> will include multiple extra parameters that <em>posts</em> don't necessarily have out of the box:</p>
+                        <ul>
+                            <li class="fragment">Book's author (name)</li>
+                            <li class="fragment">Book's author (Twitter handle)</li>
+                            <li class="fragment">Book's publication date</li>
+                            <li class="fragment">Book's publisher (name)</li>
+                            <li class="fragment">Book's publisher (URL)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>Here’s a look at how our CMS users might edit these “Books”:</p>
+
+                    </section>
+                    <section>
+                        <p>All these extra properties are saved as post_meta. </p>
+                        <p class="fragment">You might have seen a section in the post or page edit screen named “Custom Fields”.</p>
+                        <p class="fragment">They act the same way.</p>
+                        <p class="fragment">In our case, we wanted to give the CMS user a slightly nicer way of entering the data (as well as letting us validate it before saving it).</p>
+                    </section>
+                    <section>
+                        <p>So, to recap, our <em>Books</em>’s properties :</p>
+                        <ul>
+                            <li class="fragment">Book's author (name) [post_meta = <code>_books_author</code>]</li>
+                            <li class="fragment">Book's author (Twitter handle) [post_meta = <code>_books_author_twitter</code>]</li>
+                            <li class="fragment">Book's publication date [post_meta = <code>_books_date_published</code>]</li>
+                            <li class="fragment">Book's publisher (name) [post_meta = <code>_books_publisher</code>]</li>
+                            <li class="fragment">Book's publisher (URL) [post_meta = <code>_books_publisher_url</code>]</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>We'll be grabbing the 15 newest books</h4>
+                        <div class="fragment">
+                            <p>Remember how we saw that WP_Query has defaults in place?</p>
+                            <p class="fragment">In our previous "10 latest posts" arguments,</p>
+                            <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page' => 10,
+    );
+         </code></pre>
+                            <p class="fragment">the default was actually</p>
+                            <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page'    => 10,
+    'post_type'         => 'post',
+    );
+         </code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h4>To go grab our Books, we’ll simply replace <code>'post'</code> by our Custom Post Type: <code>'book'</code></h4>
+                        <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page'    => 15,
+    'post_type'         => 'book',
+    );
+         </code></pre>
+                    </section>
+                    <section>
+                        <p>Before we discuss how to sort by published date, let’s get the loop started:</p>
+                        <ol>
+
+                            <li class="fragment">Get the arguments ready</li>
+                            <li class="fragment">Pass them to a new instance of the WP_Query class</li>
+                            <li class="fragment">If we get more than 0 results, let’s loop through them
+                                <ol>
+                                    <li class="fragment">Let’s see if there’s a featured image / post thumbnail and show it if it exists</li>
+                                    <li class="fragment">Output the title of the book</li>
+                                    <li class="fragment">Output the Author</li>
+                                    <li class="fragment">Output a description<br />(entered in the content editing area in WordPress)</li>
+                                    <li class="fragment">Output the publisher</li>
+                                    <li class="fragment">Output the publication date</li>
+                                </ol>
+                            </li>
+                            <li class="fragment">Reset everything to make sure we don’t affect any other loops:<br />
+                                <code>wp_reset_postdata();</code></li>
+                        </ol>
+
+                    </section>
+                    <section>
+                        <h2>Let's go through those with the associated code...</h2>
+                    </section>
+                    <section>
+                        <h3>Get the arguments ready</h3>
+                        <pre><code class="language-php" data-trim>
+// Prepare the arguments
+$args = array(
+    'post_type' => 'book',
+    'posts_per_page' => 15,
+);
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Pass them to a new instance of the WP_Query class</h3>
+                        <pre><code class="language-php" data-trim>
+// The Query
+$the_query = new WP_Query( $args );
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>If we get more than 0 results, let’s loop through them</h3>
+                        <pre><code class="language-php" data-trim>
+&lt;?php if ( $the_query->have_posts() ) : ?>
+ while ( $the_query->have_posts() ) {
+            $the_query->the_post();
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Slight deviation: Let's get all our <code>post_meta</code> ready:</h3>
+                        <pre><code class="" data-trim>
+//prep the_post()
+$the_query->the_post();
+
+//set aside the ID#
+$post_id = get_the_ID();
+
+//Fetch the book thumbnail if there is one
+$book_thumb = get_the_post_thumbnail( $post_id, 'book-cover' );
+
+//Fetch the Book's Author name
+$author = get_post_meta( $post_id, '_books_author', true );
+
+//Fetch the Book's Author Twitter handle
+$author_twitter = get_post_meta( $post_id, '_books_author_twitter', true );
+
+//Fetch the Book publisher's name
+$publisher = get_post_meta( $post_id, '_books_publisher', true );
+
+//Fetch the Book publisher's URL
+$publisher_url = get_post_meta( $post_id, '_books_publisher_url', true );
+
+//Fetch the publication date
+$date_published = get_post_meta( $post_id, '_books_date_published', true );
+
+//Also grab the Year out of the publication date
+$date_published_year = date( 'Y', strtotime( $date_published ) );
+
+//Prepare an iso-8601 formatted version of the publication date
+$date_published_iso8601 = date( 'Y-m-d', strtotime( $date_published ) );
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Output the thumbnail if there is one</h3>
+                        <pre><code class="" data-trim>
+&lt;?php if ( $book_thumb ) { ?>
+    &lt;div class="book-thumbnail">
+        &lt;a href="&lt;?php the_permalink(); ?>" rel="bookmark">
+            &lt;?php echo $book_thumb; ?>
+        &lt;/a>
+    &lt;/div>
+&lt;?php } ?>
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>Output the title of the book</h3>
+                        <pre><code class="" data-trim>
+&lt;h2 class="book-title" itemprop="name">
+    &lt;a href="&lt;?php the_permalink(); ?>" rel="bookmark">
+        &lt;?php the_title(); ?>
+    &lt;/a>
+&lt;/h2>
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>Output the Author</h3>
+                        <pre><code class="" data-trim>
+// Fetch the Book's Author name
+// $author = get_post_meta( $post_id, '_books_author', true );
+
+&lt;div class="book-author">&lt;?php echo $author; ?>&lt;/div>
+</code></pre>
+                        <div class="fragment">
+                            ...slightly more complete version:
+                            <pre><code class="" data-trim>
+&lt;?php
+if ( $author ) {
+    if ( $author_twitter ) {
+        ?&gt;
+        &lt;div class=&quot;book-author&quot; itemprop=&quot;author&quot;&gt;
+            &lt;?php _ex( 'by', 'Book page &quot;by Author&quot;', 'wcott2014' ); ?&gt;
+            &lt;a href=&quot;https://twitter.com/&lt;?php echo $author_twitter; ?&gt;&quot;&gt;
+                &lt;?php echo $author; ?&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;?php } else { ?&gt;
+        &lt;div class=&quot;book-author&quot; itemprop=&quot;author&quot;&gt;
+            &lt;?php _ex( 'by', 'Book page &quot;by Author&quot;', 'wcott2014' ); ?&gt;
+            &lt;?php echo $author; ?&gt;
+        &lt;/div&gt;
+    &lt;?php } ?&gt;
+&lt;?php } ?&gt;
+</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Output a description<br />(entered in the content editing area in WordPress)</h3>
+                        <pre><code class="" data-trim>
+&lt;div class=&quot;book-content&quot;&gt;
+    &lt;?php the_content(); ?&gt;
+&lt;/div&gt;
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>Output the publisher</h3>
+                        <pre><code class="" data-trim>
+// Fetch the Book publisher's name
+// $publisher = get_post_meta( $post_id, '_books_publisher', true );
+
+&lt;div class=&quot;book-publisher&quot;&gt;
+    &lt;?php echo $publisher; ?&gt;
+&lt;/div&gt;
+</code></pre>
+                        <div class="fragment">
+                            ...slightly more complete version:
+                            <pre><code class="" data-trim>
+&lt;?php
+if ( $publisher ) {
+    if ( $publisher_url ) {
+        ?&gt;
+        &lt;div class=&quot;book-publisher&quot;&gt;
+            &lt;a href=&quot;&lt;?php echo $publisher_url; ?&gt;&quot;&gt;
+                &lt;?php echo $publisher; ?&gt;
+            &lt;/a&gt;&lt;/div&gt;
+    &lt;?php } else { ?&gt;
+        &lt;div class=&quot;book-publisher&quot;&gt;
+            &lt;?php echo $publisher; ?&gt;
+        &lt;/div&gt;
+    &lt;?php } ?&gt;
+&lt;?php } ?&gt;
+</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Output the publication date</h3>
+                        <pre><code class="" data-trim>
+// Fetch the publication date
+// $date_published = get_post_meta( $post_id, '_books_date_published', true );
+
+&lt;div class=&quot;book-year&quot;&gt;
+    &lt;?php echo $date_published; ?&gt;
+&lt;/div&gt;
+</code></pre>
+                        <div class="fragment">
+                            ...but I want to only display the year, (more complete version)
+                            <pre><code class="" data-trim>
+&lt;?php if ( $date_published ) { ?&gt;
+    &lt;div class=&quot;book-year&quot; itemprop=&quot;datePublished&quot;
+            content=&quot;&lt;?php echo $date_published_iso8601; ?&gt;&quot;&gt;
+        &lt;?php echo $date_published_year; ?&gt;
+    &lt;/div&gt;
+&lt;?php } ?&gt;
+</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Reset everything to make sure we don’t affect any other loops with <code>wp_reset_postdata();</code></h3>
+                        <pre><code class="language-php" data-trim>
+&lt;?php wp_reset_postdata(); ?&gt;
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Put together, it looks a bit like this:</h2>
+                        <small>*Unfortunately, there's no way I could actually manage to show you this on one screen. :'(</small>
+                        <pre><code class="" data-trim>
+&lt;?php
+// Prepare the arguments
+$args = array(
+    'post_type' =&gt; 'book',
+    'offset' =&gt; 0,
+    'posts_per_page' =&gt; 15,
+    'orderby' =&gt; 'meta_value',
+    'order' =&gt; 'DESC',
+    'meta_key' =&gt; '_books_date_published'
+);
+
+// The Query
+$the_query = new WP_Query( $args );
+?&gt;
+
+&lt;?php if ( $the_query-&gt;have_posts() ) : ?&gt;
+    &lt;section class=&quot;section-fifteen-latest-books inner clear&quot;&gt;
+
+        &lt;!-- the loop --&gt;
+        &lt;?php
+        while ( $the_query-&gt;have_posts() ) {
+
+            //prep the_post()
+            $the_query-&gt;the_post();
+
+            //set aside the ID#
+            $post_id = get_the_ID();
+
+            //Fetch the book thumbnail if there is one
+            $book_thumb = get_the_post_thumbnail( $post_id, 'book-cover', array( 'itemprop' =&gt; 'image' ) );
+
+            //Fetch the Book's Author name
+            $author = get_post_meta( $post_id, '_books_author', true );
+
+            //Fetch the Book's Author Twitter handle
+            $author_twitter = get_post_meta( $post_id, '_books_author_twitter', true );
+
+            //Fetch the Book publisher's name
+            $publisher = get_post_meta( $post_id, '_books_publisher', true );
+
+            //Fetch the Book publisher's URL
+            $publisher_url = get_post_meta( $post_id, '_books_publisher_url', true );
+
+            //Fetch the publication date
+            $date_published = get_post_meta( $post_id, '_books_date_published', true );
+
+            //Also grab the Year out of the publication date
+            $date_published_year = date( 'Y', strtotime( $date_published ) );
+
+            //Prepare an iso-8601 formatted version of the publication date
+            $date_published_iso8601 = date( 'Y-m-d', strtotime( $date_published ) );
+            ?&gt;
+            &lt;article class=&quot;book&quot; itemscope itemtype=&quot;http://schema.org/Book&quot; data-url=&quot;&lt;?php the_permalink(); ?&gt;&quot;&gt;
+                &lt;?php if ( $book_thumb == 1 ) { ?&gt;
+                    &lt;div class=&quot;book-thumbnail&quot;&gt;&lt;a href=&quot;&lt;?php the_permalink(); ?&gt;&quot; rel=&quot;bookmark&quot;&gt;&lt;?php echo $book_thumb; ?&gt;&lt;/a&gt;&lt;/div&gt;
+                &lt;?php } ?&gt;
+
+                &lt;div class=&quot;book-info&quot;&gt;
+                    &lt;h2 class=&quot;book-title&quot; itemprop=&quot;name&quot;&gt;&lt;a href=&quot;&lt;?php the_permalink(); ?&gt;&quot; rel=&quot;bookmark&quot;&gt;&lt;?php the_title(); ?&gt;&lt;/a&gt;&lt;/h2&gt;
+
+                    &lt;?php
+                    if ( $author ) {
+                        if ( $author_twitter ) {
+                            ?&gt;
+                            &lt;div class=&quot;book-author&quot; itemprop=&quot;author&quot;&gt;&lt;?php _ex( 'by', 'Book page &quot;by Author&quot;', 'wcott2014' ); ?&gt; &lt;a href=&quot;https://twitter.com/&lt;?php echo $author_twitter; ?&gt;&quot;&gt;&lt;?php echo $author; ?&gt;&lt;/a&gt;&lt;/div&gt;
+                        &lt;?php } else { ?&gt;
+                            &lt;div class=&quot;book-author&quot; itemprop=&quot;author&quot;&gt;&lt;?php _ex( 'by', 'Book page &quot;by Author&quot;', 'wcott2014' ); ?&gt; &lt;?php echo $author; ?&gt;&lt;/div&gt;
+                        &lt;?php } ?&gt;
+                    &lt;?php } ?&gt;
+
+                    &lt;div class=&quot;book-content&quot; itemprop=&quot;description&quot;&gt;&lt;?php //the_content();  ?&gt;&lt;/div&gt;
+
+
+
+                    &lt;?php
+                    if ( $publisher ) {
+                        if ( $publisher_url ) {
+                            ?&gt;
+                            &lt;div class=&quot;book-publisher&quot; itemprop=&quot;publisher&quot;&gt;&lt;a href=&quot;&lt;?php echo $publisher_url; ?&gt;&quot;&gt;&lt;?php echo $publisher; ?&gt;&lt;/a&gt;&lt;/div&gt;
+                        &lt;?php } else { ?&gt;
+                            &lt;div class=&quot;book-publisher&quot; itemprop=&quot;publisher&quot;&gt;&lt;?php echo $publisher; ?&gt;&lt;/div&gt;
+                        &lt;?php } ?&gt;
+                    &lt;?php } ?&gt;
+
+                    &lt;?php if ( $date_published ) { ?&gt;
+                        &lt;div class=&quot;book-year&quot; itemprop=&quot;datePublished&quot; content=&quot;&lt;?php echo $date_published_iso8601; ?&gt;&quot;&gt;&lt;?php echo $date_published; ?&gt;&lt;/div&gt;
+                    &lt;?php } ?&gt;
+                &lt;/div&gt;
+            &lt;/article&gt;
+        &lt;?php } ?&gt;
+        &lt;!-- end of the loop --&gt;
+
+
+        &lt;?php wp_reset_postdata(); ?&gt;
+    &lt;/section&gt;&lt;!-- .section-ten-latest-posts --&gt;
+
+&lt;?php else: ?&gt;
+    &lt;div class=&quot;inner&quot;&gt;
+        &lt;p&gt;&lt;?php _e( 'Sorry, no posts matched your criteria.', 'wcott2014' ); ?&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Show me some results!</h2>
+                        <div class="fragment">
+                            <div class="book-loop-results-1">
+                                <div class="section-fifteen-latest-books inner clear">
+
+
+
+                                    <!-- the loop -->
+                                    <article data-url="http://localhost/wcott2014/book/living-with-a-dev-a-wordsmiths-adventure/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/living-with-a-dev-a-wordsmiths-adventure/">Living With a Dev, a Wordsmith’s Adventure</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@wordinette">Isabelle Hurteau</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://isotrope.net">Isabelle Hurteau traductions</a></div>
+
+                                            <div content="2014-05-08" itemprop="datePublished" class="book-year">2014-05-08</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/taking-a-byte-out-of-bits-of-code/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/taking-a-byte-out-of-bits-of-code/">Taking A Byte Out Of Bits Of Code</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@logikdev">Guillaume&nbsp;Drolet-Paré</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://logikdev.ca/">Logikdev</a></div>
+
+                                            <div content="2014-04-01" itemprop="datePublished" class="book-year">2014-04-01</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/adding-a-third-dimension-through-molecular-code/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/adding-a-third-dimension-through-molecular-code/">Adding A Third Dimension Through Molecular Code</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@molecularcode">Alex Ruaux</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://molecularcodewebdesign.com/">Molecularcode Web Design and Development</a></div>
+
+                                            <div content="2014-02-21" itemprop="datePublished" class="book-year">2014-02-21</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/your-ux-is-sux/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/your-ux-is-sux/">Your UX is SUX</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@elida_ca">Elida Arrizza</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://elida.ca/">Elida Arrizza</a></div>
+
+                                            <div content="2014-04-11" itemprop="datePublished" class="book-year">2014-04-11</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/y-u-no-do-it-right/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/y-u-no-do-it-right/">Y U NO DO IT RIGHT!?!</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@jeremyclarke">Jeremy Clarke</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://jeremyclarke.ca">Simian Uprising</a></div>
+
+                                            <div content="2014-02-28" itemprop="datePublished" class="book-year">2014-02-28</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/how-to-win-visitors-and-influence-your-seo/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/how-to-win-visitors-and-influence-your-seo/">How To Win Visitors And Influence Your SEO</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@brianrotsztein">Brian Rotzein</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://www.rotsztein.com/">Brian Rotzein</a></div>
+
+                                            <div content="2014-07-17" itemprop="datePublished" class="book-year">2014-07-17</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/oop-there-it-is/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/oop-there-it-is/">OOP, there it is!</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@twigpress">Carl Alexander</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://carlalexander.ca/"> The Man in the Arena</a></div>
+
+                                            <div content="2014-08-20" itemprop="datePublished" class="book-year">2014-08-20</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/wordpress-content-without-the-additives/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/wordpress-content-without-the-additives/">WordPress Content Without The Additives</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@edesaulniers">Élise Desaulniers</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://edesaulniers.com/">Je mange avec ma tête</a></div>
+
+                                            <div content="2013-08-09" itemprop="datePublished" class="book-year">2013-08-09</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/happiness-is-a-way-of-life-and-work/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/happiness-is-a-way-of-life-and-work/">Happiness Is A Way Of Life (and Work!)</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@zoonini">Kathryn Presner</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://kpresner.com/">Zoonini</a></div>
+
+                                            <div content="2014-01-27" itemprop="datePublished" class="book-year">2014-01-27</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/give-your-designs-that-extra-nudge/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/give-your-designs-that-extra-nudge/">Give Your Designs That Extra Nudge</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@NudgeDesign">Sonia Gaballa</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://nudgedesign.ca/">Nudge Design</a></div>
+
+                                            <div content="2014-11-03" itemprop="datePublished" class="book-year">2014-11-03</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/making-love-to-your-wordpress-themes-the-chris-bavota-way/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/making-love-to-your-wordpress-themes-the-chris-bavota-way/">Making Love To Your WordPress Themes the Chris Bavota way</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@bavotasan">Chris Bavota</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://themes.bavotasan.com/">Bavota San</a></div>
+
+                                            <div content="2015-12-04" itemprop="datePublished" class="book-year">2015-12-04</div>
+                                        </div>
+                                    </article>
+                                    <article data-url="http://localhost/wcott2014/book/this-one-time-at-wordcamp/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                        <div class="book-info">
+                                            <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/this-one-time-at-wordcamp/">This One Time at WordCamp</a></h2>
+
+                                            <div itemprop="author" class="book-author">by <a href="https://twitter.com/@isotrope">Michal Bluma</a></div>
+
+                                            <div itemprop="description" class="book-content"></div>
+
+
+
+                                            <div itemprop="publisher" class="book-publisher"><a href="http://isotrope.net">isotrope</a></div>
+
+                                            <div content="2014-12-31" itemprop="datePublished" class="book-year">2014-12-31</div>
+                                        </div>
+                                    </article>
+                                    <!-- end of the loop -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Notice anything?</h2>
+                        <p class="fragment">All the Books were sorted in the WordPress posting date order.</p>
+                        <p class="fragment">We want to sort them by the Book's publication date.</p>
+                    </section>
+                    <section>
+                        <h1>Meta keys to the rescue!</h1>
+                        <p class="fragment">We're going to add a few extra parameters in our arguments array:</p>
+                        <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page'    => 15,
+    'post_type'         => 'book',
+    );
+         </code></pre>
+                        <p class="fragment">will become</p>
+                        <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page'    => 15,
+    'post_type'         => 'book',
+    'meta_key'          => '_books_date_published',
+    'orderby'           => 'meta_value',
+    'order'             => 'DESC',
+    );
+         </code></pre>
+                    </section>
+                    <section>
+                        <p>We're adding a 'meta_key' parameter.</p>
+                        <pre class="fragment"><code class="language-php" data-trim>
+'meta_key'  => '_books_date_published',
+         </code></pre>
+                        <div class="fragment">
+                            <p>We're telling WP_Query</p>
+                            <blockquote>
+                                <p>OK. So don't actually use one of the fields you're used to when sorting these results.<br />
+                                    There's a field named <code>_books_date_published</code> that I'd like you to use.
+                            </blockquote>
+                    </section>
+                    <section>
+                        <p>Now that we've asked WP_Query to look in that field, we need to tell it how to process it when sorting.</p>
+                        <p class="fragment">Usually, you'd enter one of two values:</p>
+                        <code class="fragment">meta_value</code>
+                        <span class="fragment">or</span>
+                        <code class="fragment">meta_value_num</code>
+                        <p class="fragment">Without going into too much detail, think of it this way:</p>
+                        <blockquote class="fragment">
+                            <p>Is it an alphanumerical value, or simply a numerical one?</p>
+                        </blockquote>
+                    </section>
+                    <section>
+                        <h2>So... How do the results look when we use our new arguments?</h2>
+                        <pre class="fragment"><code class="language-php" data-trim>
+$args = array(
+    'posts_per_page'    => 15,
+    'post_type'         => 'book',
+    'meta_key'          => '_books_date_published',
+    'orderby'           => 'meta_value',
+    'order'             => 'DESC',
+    );
+         </code></pre>
+                    </section>
+                    <section>
+                        <div class="book-loop-results-1">
+                            <div class="section-fifteen-latest-books inner clear">
+
+                                <!-- the loop -->
+                                <article data-url="http://localhost/wcott2014/book/making-love-to-your-wordpress-themes-the-chris-bavota-way/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/making-love-to-your-wordpress-themes-the-chris-bavota-way/">Making Love To Your WordPress Themes the Chris Bavota way</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Chris Bavota</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://themes.bavotasan.com/">Bavota San</a></div>
+
+                                        <div content="2015-12-04" itemprop="datePublished" class="book-year">2015-12-04</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/this-one-time-at-wordcamp/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/this-one-time-at-wordcamp/">This One Time at WordCamp</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Michal Bluma</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://isotrope.net">isotrope</a></div>
+
+                                        <div content="2014-12-31" itemprop="datePublished" class="book-year">2014-12-31</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/give-your-designs-that-extra-nudge/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/give-your-designs-that-extra-nudge/">Give Your Designs That Extra Nudge</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Sonia Gaballa</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://nudgedesign.ca/">Nudge Design</a></div>
+
+                                        <div content="2014-11-03" itemprop="datePublished" class="book-year">2014-11-03</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/oop-there-it-is/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/oop-there-it-is/">OOP, there it is!</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Carl Alexander</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://carlalexander.ca/"> The Man in the Arena</a></div>
+
+                                        <div content="2014-08-20" itemprop="datePublished" class="book-year">2014-08-20</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/how-to-win-visitors-and-influence-your-seo/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/how-to-win-visitors-and-influence-your-seo/">How To Win Visitors And Influence Your SEO</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Brian Rotzein</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://www.rotsztein.com/">Brian Rotzein</a></div>
+
+                                        <div content="2014-07-17" itemprop="datePublished" class="book-year">2014-07-17</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/living-with-a-dev-a-wordsmiths-adventure/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/living-with-a-dev-a-wordsmiths-adventure/">Living With a Dev, a Wordsmith’s Adventure</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Isabelle Hurteau</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://isotrope.net">Isabelle Hurteau traductions</a></div>
+
+                                        <div content="2014-05-08" itemprop="datePublished" class="book-year">2014-05-08</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/your-ux-is-sux/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/your-ux-is-sux/">Your UX is SUX</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Elida Arrizza</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://elida.ca/">Elida Arrizza</a></div>
+
+                                        <div content="2014-04-11" itemprop="datePublished" class="book-year">2014-04-11</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/taking-a-byte-out-of-bits-of-code/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/taking-a-byte-out-of-bits-of-code/">Taking A Byte Out Of Bits Of Code</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Guillaume&nbsp;Drolet-Paré</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://logikdev.ca/">Logikdev</a></div>
+
+                                        <div content="2014-04-01" itemprop="datePublished" class="book-year">2014-04-01</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/y-u-no-do-it-right/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/y-u-no-do-it-right/">Y U NO DO IT RIGHT!?!</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Jeremy Clarke</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://jeremyclarke.ca">Simian Uprising</a></div>
+
+                                        <div content="2014-02-28" itemprop="datePublished" class="book-year">2014-02-28</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/adding-a-third-dimension-through-molecular-code/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/adding-a-third-dimension-through-molecular-code/">Adding A Third Dimension Through Molecular Code</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Alex Ruaux</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://molecularcodewebdesign.com/">Molecularcode Web Design and Development</a></div>
+
+                                        <div content="2014-02-21" itemprop="datePublished" class="book-year">2014-02-21</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/happiness-is-a-way-of-life-and-work/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/happiness-is-a-way-of-life-and-work/">Happiness Is A Way Of Life (and Work!)</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Kathryn Presner</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://kpresner.com/">Zoonini</a></div>
+
+                                        <div content="2014-01-27" itemprop="datePublished" class="book-year">2014-01-27</div>
+                                    </div>
+                                </article>
+                                <article data-url="http://localhost/wcott2014/book/wordpress-content-without-the-additives/" itemtype="http://schema.org/Book" itemscope="" class="book">
+
+                                    <div class="book-info">
+                                        <h2 itemprop="name" class="book-title"><a rel="bookmark" href="http://localhost/wcott2014/book/wordpress-content-without-the-additives/">WordPress Content Without The Additives</a></h2>
+
+                                        <div itemprop="author" class="book-author">by Élise Desaulniers</div>
+
+
+
+
+
+                                        <div itemprop="publisher" class="book-publisher"><a href="http://edesaulniers.com/">Je mange avec ma tête</a></div>
+
+                                        <div content="2013-08-09" itemprop="datePublished" class="book-year">2013-08-09</div>
+                                    </div>
+                                </article>
+                                <!-- end of the loop -->
+
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+
+
+                <section>
+                    <section>
+                    <h1>Time to put it all together!</h1>
+                    <blockquote class="fragment">
+                        <h2>Didn't we have book covers and descriptions in there too?</h2>
+                    </blockquote>
+                    <blockquote class="fragment">
+                        <h2>We did indeed!</h2>
+                    </blockquote>
+                    </section>
+                    <section>
+                        <iframe src="http://localhost/wcott2014/fifteen-most-recent-books/" width="100%" height="690px"></iframe>
+                    </section>
+                    <section>
+                        <h2>Let's take it a little further:</h2>
+                        <div class="fragment">
+                            <iframe src="http://localhost/wcott2014/fifteen-most-recent-books/" width="100%" height="690px"></iframe>
+                        </div>
+                    </section>
+                </section>
 
             </div>
         </div>

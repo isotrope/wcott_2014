@@ -19,9 +19,7 @@ get_header();
             <?php endwhile; // end of the loop. ?>
         </section><!-- .page-main-content -->
         <div class="bg-gray">
-            <div class="demo-step-togglers inner">
-                <a href="#" id="btn-add-step" class="btn">Toggle Step</a>
-            </div>
+
             <?php
             // Prepare the arguments
             $args = array(
@@ -36,89 +34,117 @@ get_header();
 
             // The Query
             $the_query = new WP_Query( $args );
+
+            // A little counter for our IDs
+            $book_counter = 1;
             ?>
 
             <?php if ( $the_query->have_posts() ) : ?>
-                <section class="section-fifteen-latest-books inner clear">
+                <section class="section-fifteen-latest-books-twist inner clear">
+                    <ul id="bk-list" class="bk-list clearfix">
+                        <!-- the loop -->
+                        <?php
+                        while ( $the_query->have_posts() ) {
 
-                    <!-- the loop -->
-                    <?php
-                    while ( $the_query->have_posts() ) {
+                            //prep the_post()
+                            $the_query->the_post();
 
-                        //prep the_post()
-                        $the_query->the_post();
+                            //set aside the ID#
+                            $post_id = get_the_ID();
 
-                        //set aside the ID#
-                        $post_id = get_the_ID();
+                            //Fetch the book thumbnail if there is one
+                            $book_thumb = get_the_post_thumbnail( $post_id, 'book-cover', array( 'itemprop' => 'image' ) );
 
-                        //Fetch the book thumbnail if there is one
-                        $book_thumb = get_the_post_thumbnail( $post_id, 'book-cover', array( 'itemprop' => 'image' ) );
+                            //Fetch the Book's Author name
+                            $author = get_post_meta( $post_id, '_books_author', true );
 
-                        //Fetch the Book's Author name
-                        $author = get_post_meta( $post_id, '_books_author', true );
+                            //Fetch the Book's Author Twitter handle
+                            $author_twitter = get_post_meta( $post_id, '_books_author_twitter', true );
 
-                        //Fetch the Book's Author Twitter handle
-                        $author_twitter = get_post_meta( $post_id, '_books_author_twitter', true );
+                            //Fetch the Book publisher's name
+                            $publisher = get_post_meta( $post_id, '_books_publisher', true );
 
-                        //Fetch the Book publisher's name
-                        $publisher = get_post_meta( $post_id, '_books_publisher', true );
+                            //Fetch the Book publisher's URL
+                            $publisher_url = get_post_meta( $post_id, '_books_publisher_url', true );
 
-                        //Fetch the Book publisher's URL
-                        $publisher_url = get_post_meta( $post_id, '_books_publisher_url', true );
+                            //Fetch the publication date
+                            $date_published = get_post_meta( $post_id, '_books_date_published', true );
 
-                        //Fetch the publication date
-                        $date_published = get_post_meta( $post_id, '_books_date_published', true );
+                            //Also grab the Year out of the publication date
+                            $date_published_year = date( 'Y', strtotime( $date_published ) );
 
-                        //Also grab the Year out of the publication date
-                        $date_published_year = date( 'Y', strtotime( $date_published ) );
+                            //Prepare an iso-8601 formatted version of the publication date
+                            $date_published_iso8601 = date( 'Y-m-d', strtotime( $date_published ) );
 
-                        //Prepare an iso-8601 formatted version of the publication date
-                        $date_published_iso8601 = date( 'Y-m-d', strtotime( $date_published ) );
-                        ?>
-                        <article class="book" itemscope itemtype="http://schema.org/Book" data-url="<?php the_permalink(); ?>">
-                            <?php if ( $book_thumb ) { ?>
-                                <div class="book-thumbnail"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php echo $book_thumb; ?></a></div>
-                            <?php } ?>
+                            //Fetch the Colour for the cover
+                            $cover_colour = get_post_meta( $post_id, '_books_cover_colour', true );
 
-                            <div class="book-info">
-                                <h2 class="book-title" itemprop="name"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
-
-                                <?php
-                                if ( $author ) {
-                                    if ( $author_twitter ) {
-                                        ?>
-                                        <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <a href="https://twitter.com/<?php echo $author_twitter; ?>"><?php echo $author; ?></a></div>
-                                    <?php } else { ?>
-                                        <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <?php echo $author; ?></div>
-                                    <?php } ?>
-                                <?php } ?>
-
-                                <div class="book-content" itemprop="description"><?php the_content(); ?></div>
+                            ?>
 
 
+                            <li>
+                                <div class="bk-book book-1<?php // echo $book_counter; ?> bk-bookdefault" itemscope itemtype="http://schema.org/Book" data-url="<?php the_permalink(); ?>" data-cover-colour="<?php echo $cover_colour; ?>">
+                                    <div class="bk-front">
+                                        <div class="bk-cover">
+                                            <?php if ( $book_thumb ) { ?>
+                                                <?php echo $book_thumb; ?>
+                                            <?php } ?>
 
-                                <?php
-                                if ( $publisher ) {
-                                    if ( $publisher_url ) {
-                                        ?>
-                                        <div class="book-publisher" itemprop="publisher"><a href="<?php echo $publisher_url; ?>"><?php echo $publisher; ?></a></div>
-                                    <?php } else { ?>
-                                        <div class="book-publisher" itemprop="publisher"><?php echo $publisher; ?></div>
-                                    <?php } ?>
-                                <?php } ?>
+                                        </div>
+                                        <div class="bk-cover-back"></div>
+                                    </div>
+                                    <div class="bk-page">
+                                        <div class="bk-content bk-content-current">
+                                            <a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+                                            <?php
+                                            if ( $author ) {
+                                                if ( $author_twitter ) {
+                                                    ?>
+                                                    <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <a href="https://twitter.com/<?php echo $author_twitter; ?>"><?php echo $author; ?></a></div>
+                                                <?php } else { ?>
+                                                    <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <?php echo $author; ?></div>
+                                                <?php } ?>
+                                            <?php } ?>
+                                            <?php
+                                            if ( $publisher ) {
+                                                if ( $publisher_url ) {
+                                                    ?>
+                                                    <div class="book-publisher" itemprop="publisher"><a href="<?php echo $publisher_url; ?>"><?php echo $publisher; ?></a></div>
+                                                <?php } else { ?>
+                                                    <div class="book-publisher" itemprop="publisher"><?php echo $publisher; ?></div>
+                                                <?php } ?>
+                                            <?php } ?>
 
-                                <?php if ( $date_published ) { ?>
-                                    <div class="book-year" itemprop="datePublished" content="<?php echo $date_published_iso8601; ?>"><?php echo $date_published; ?></div>
-                                <?php } ?>
-                            </div>
-                        </article>
-                    <?php } ?>
-                    <!-- end of the loop -->
+                                            <?php if ( $date_published ) { ?>
+                                                <div class="book-year" itemprop="datePublished" content="<?php echo $date_published_iso8601; ?>"><?php echo $date_published; ?></div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="bk-content">
+                                            <div class="book-content" itemprop="description"><?php the_content(); ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="bk-back">
+                                        <p>In this nightmare vision of cats in revolt, fifteen-year-old Alex and his friends set out on a diabolical orgy of robbery, rape, torture and murder. Alex is jailed for his teenage delinquency and the State tries to reform him - but at what cost?</p>
+                                    </div>
+                                    <div class="bk-right"></div>
+                                    <div class="bk-left">
+                                        <h2>
+                                            <span><?php echo $author; ?></span>
+                                            <span><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></span>
+                                        </h2>
+                                    </div>
+                                    <div class="bk-top"></div>
+                                    <div class="bk-bottom"></div>
+                                </div>
+                            </li>
 
-
-                    <?php wp_reset_postdata(); ?>
+                            <?php $book_counter++ ;?>
+                        <?php } ?>
+                        <!-- end of the loop -->
+                    </ul>
                 </section><!-- .section-ten-latest-posts -->
 
+                <?php wp_reset_postdata(); ?>
             <?php else: ?>
                 <div class="inner">
                     <p><?php _e( 'Sorry, no posts matched your criteria.', 'wcott2014' ); ?></p>
@@ -130,5 +156,5 @@ get_header();
     </main><!-- #main -->
 </div><!-- #primary -->
 
-<?php // get_sidebar();   ?>
+<?php // get_sidebar();    ?>
 <?php get_footer(); ?>

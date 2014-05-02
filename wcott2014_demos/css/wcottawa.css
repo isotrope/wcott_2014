@@ -284,14 +284,13 @@ ______________________________________________*/
 .reveal h6 {
   font-family: "League Gothic", Impact, sans-serif;
 }
-#mondrian .content {
-  float: left;
-  max-width: 50%;
+#mondrian .split .half:first-child {
+  width: 300px;
 }
 #mondrian #masonry-container {
   float: right;
   margin: 50px auto;
-  width: 300px;
+  width: 600px;
 }
 #mondrian #masonry-container .box {
   background: #ffff00;
@@ -304,38 +303,38 @@ ______________________________________________*/
   transition: all 500ms ease-in-out;
 }
 #mondrian #masonry-container .box.w1 {
-  width: 30px;
-}
-#mondrian #masonry-container .box.w2 {
   width: 60px;
 }
-#mondrian #masonry-container .box.w3 {
-  width: 90px;
-}
-#mondrian #masonry-container .box.w4 {
+#mondrian #masonry-container .box.w2 {
   width: 120px;
 }
-#mondrian #masonry-container .box.h1 {
-  height: 30px;
+#mondrian #masonry-container .box.w3 {
+  width: 180px;
 }
-#mondrian #masonry-container .box.h2 {
+#mondrian #masonry-container .box.w4 {
+  width: 240px;
+}
+#mondrian #masonry-container .box.h1 {
   height: 60px;
 }
-#mondrian #masonry-container .box.h3 {
-  height: 90px;
-}
-#mondrian #masonry-container .box.h4 {
+#mondrian #masonry-container .box.h2 {
   height: 120px;
 }
+#mondrian #masonry-container .box.h3 {
+  height: 180px;
+}
+#mondrian #masonry-container .box.h4 {
+  height: 240px;
+}
 #mondrian #masonry-container .box.h5 {
-  height: 150px;
+  height: 300px;
 }
 #mondrian #masonry-container .box.h1.no-size,
 #mondrian #masonry-container .box.h2.no-size,
 #mondrian #masonry-container .box.h3.no-size,
 #mondrian #masonry-container .box.h4.no-size,
 #mondrian #masonry-container .box.h5.no-size {
-  height: 30px;
+  height: 60px;
 }
 #mondrian #masonry-container .box.floated {
   float: left;
@@ -352,4 +351,28 @@ ______________________________________________*/
 }
 #mondrian #masonry-container .box.colour.blue {
   background: #0000fe;
+}
+#mondrian_pic {
+  position: absolute;
+  bottom: 0;
+  left: 35%;
+  z-index: 9999;
+}
+.book-loop-results-1 {
+  height: 600px;
+  overflow: auto;
+}
+.book-loop-results-1 .book {
+  border-bottom: 1px solid yellow;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+}
+.book-loop-results-1 .book .book-title {
+  font-size: 30px;
+}
+.book-loop-results-1 .book .book-author {
+  font-size: 18px;
+}
+.book-loop-results-1 .book .book-publisher {
+  font-size: 14px;
 }

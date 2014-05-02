@@ -98,6 +98,14 @@ DEMOS.toggleFloat = function( ) {
 //    } );
 };
 
+DEMOS.toggleMondrian = function( ) {
+    if ( $( '#mondrian_pic' ).length == 0 ) {
+        $( 'body' ).append( '<img id="mondrian_pic" src="img/mondrian.png" />' );
+    } else {
+        $( '#mondrian_pic' ).remove();
+    }
+    console.log('toggling mondrian');
+};
 
 
 
@@ -105,6 +113,8 @@ DEMOS.toggleFloat = function( ) {
 function revealInit() {
     Reveal.initialize( {
         width: 1080,
+        maxScale: 1.25,
+
         // Display controls in the bottom right corner
         controls: true,
         // Display a presentation progress bar
@@ -159,29 +169,36 @@ function revealInit() {
         // Parallax background size
         parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
 
-         dependencies: [
-        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        dependencies: [
+            // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+            { src: 'lib/js/classList.js', condition: function() {
+                    return ! document.body.classList;
+                } },
+            // Interpret Markdown in <section> elements
+            { src: 'js/libs/reveal.js-master/plugin/markdown/marked.js', condition: function() {
+                    return ! ! document.querySelector( '[data-markdown]' );
+                } },
+            { src: 'js/libs/reveal.js-master/plugin/markdown/markdown.js', condition: function() {
+                    return ! ! document.querySelector( '[data-markdown]' );
+                } },
+            // Syntax highlight for <code> elements
+            { src: 'js/libs/reveal.js-master/plugin/highlight/highlight.js', async: true, callback: function() {
+                    hljs.initHighlightingOnLoad();
+                } },
+            // Zoom in and out with Alt+click
+            { src: 'js/libs/reveal.js-master/plugin/zoom-js/zoom.js', async: true, condition: function() {
+                    return ! ! document.body.classList;
+                } },
+            // Speaker notes
+            { src: 'js/libs/reveal.js-master/plugin/notes/notes.js', async: true, condition: function() {
+                    return ! ! document.body.classList;
+                } },
+            // Remote control your reveal.js presentation using a touch device
+            //{ src: 'js/libs/reveal.js-master/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
 
-        // Interpret Markdown in <section> elements
-        { src: 'js/libs/reveal.js-master/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: 'js/libs/reveal.js-master/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-
-        // Syntax highlight for <code> elements
-        { src: 'js/libs/reveal.js-master/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-
-        // Zoom in and out with Alt+click
-        { src: 'js/libs/reveal.js-master/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Speaker notes
-        { src: 'js/libs/reveal.js-master/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // Remote control your reveal.js presentation using a touch device
-        //{ src: 'js/libs/reveal.js-master/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
-
-        // MathJax
-        //{ src: 'js/libs/reveal.js-master/plugin/math/math.js', async: true }
-    ]
+            // MathJax
+            //{ src: 'js/libs/reveal.js-master/plugin/math/math.js', async: true }
+        ]
 
     } );
 
@@ -199,6 +216,8 @@ function revealInit() {
             DEMOS.toggleMasonry( );
         } else if ( dataRun == 'DEMOS.toggleMasonryColour' ) {
             DEMOS.toggleMasonryColour( );
+        } else if ( dataRun == 'DEMOS.toggleMondrian' ) {
+            DEMOS.toggleMondrian( );
         }
     } );
 
@@ -215,6 +234,8 @@ function revealInit() {
             DEMOS.toggleMasonry( );
         } else if ( dataRun == 'DEMOS.toggleMasonryColour' ) {
             DEMOS.toggleMasonryColour( );
+        } else if ( dataRun == 'DEMOS.toggleMondrian' ) {
+            DEMOS.toggleMondrian( );
         }
     } );
 }

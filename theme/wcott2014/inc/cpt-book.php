@@ -47,7 +47,7 @@ function book_cpt_init() {
     register_post_type( 'book', $args );
 
 
-add_image_size( 'book-cover', 640, 1024, true );
+add_image_size( 'book-cover', 640);
 }
 
 
