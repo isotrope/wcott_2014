@@ -271,7 +271,14 @@ ______________________________________________*/
   font-family: 'Lato', sans-serif;
 }
 .reveal section img {
-  max-height: 700px;
+  max-height: 630px;
+}
+.reveal section .no-border {
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  border: none;
+  background: none;
 }
 /*********************************************
  * HEADERS
@@ -283,6 +290,9 @@ ______________________________________________*/
 .reveal h5,
 .reveal h6 {
   font-family: "League Gothic", Impact, sans-serif;
+}
+#mondrian p {
+  font-size: 24px;
 }
 #mondrian .split .half:first-child {
   width: 300px;

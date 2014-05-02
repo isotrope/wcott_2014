@@ -95,8 +95,13 @@ ______________________________________________*/
 
     section {
         img {
-            max-height: 700px;
+            max-height: 630px;
         }
+        .no-border {
+            .drop-shadow(0, 0, 0, 0);
+            border: none;
+            background: none;
+}
     }
 }
 
@@ -116,6 +121,10 @@ ______________________________________________*/
 
 #mondrian {
     @box_unit: 60px;
+    
+    p {
+        font-size: 24px;
+}
 
     .split .half:first-child {
         width: 300px;

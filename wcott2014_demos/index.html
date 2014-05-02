@@ -30,6 +30,15 @@ and open the template in the editor.
                     <h1>Show them everything!</h1>
                 </section>
                 <section>
+                     <section>
+                        <h1>Michal Bluma</h1>
+                        <img class="no-border" src="img/iso_logo.png" />
+                        <p><a href="http://isotrope.net">http://isotrope.net</a></p>
+                        <p><a href="http://twitter.com/isotrope">@isotrope</a></p>
+                        <p><a href="http://www.facebook.com/isotrope.net">https://www.facebook.com/isotrope.net</a></p>
+                    </section>
+                </section>
+                <section>
                     <h1>What we’ll cover</h1>
                     <div class="split">
                         <h2 class="half fragment">Masonry</h2>
@@ -86,7 +95,7 @@ and open the template in the editor.
                                 <span class="fragment fade-in" data-run="DEMOS.toggleFloat"></span>
                                 <p class="fragment">...but what if our elements don't all have the same height?</p>
                                 <span class="fragment" data-run="DEMOS.toggleSize"></span>
-                                <p class="fragment">Gaps!</p>
+                                <h2 class="fragment">Gaps!</h2>
                                 <aside class="notes">
                                     Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
                                 </aside>
@@ -138,7 +147,31 @@ and open the template in the editor.
                     </section>
                     <section>
                         <p>That’s where one of Masonry’s siblings comes in: Packery.</p>
-                        <p>Packery uses a bin-packing algorithm. The trade-off is knowing exactly where the elements will fall.</p>
+                        <p>Packery uses a bin-packing algorithm. The trade-off is not knowing exactly where the elements will fall.</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                    <h1>How do we actually activate Masonry?</h1>
+                    <p class="fragment">With <code><a href="http://codex.wordpress.org/Function_Reference/wp_enqueue_script">wp_enqueue_scripts</a></code>!</p>
+                    </section>
+                    <section>
+                        <h4>Since it's already registered in WordPress, to <em>turn on</em> Masonry, we simply need to enqueue it</h4>
+                        <pre class="fragment"><code class="language-php" data-trim>
+&lt;?php
+function enqueue_masonry() {
+    wp_enqueue_script( 'jquery-masonry' );
+}
+
+// wp_enqueue_scripts action hook to link only on the front-end
+add_action( 'wp_enqueue_scripts', 'enqueue_masonry' ); 
+?&gt;
+                    </code></pre>
+                    </section>
+                    <section>
+                        <h2>Wanna know which other scripts already come ready to activate in WordPress?</h2>
+                        <p class="fragment">Simply check out the wp_enqueue_scripts page in the Codex: <a href="http://codex.wordpress.org/Function_Reference/wp_enqueue_script#Default_Scripts_Included_and_Registered_by_WordPress">http://codex.wordpress.org/Function_Reference/wp_enqueue_script</a></p>
                     </section>
                 </section>
 
@@ -392,7 +425,7 @@ $the_query = new WP_Query( $args ); ?>
                     </section>
                     <section>
                         <p>Here’s a look at how our CMS users might edit these “Books”:</p>
-
+                        <img src="img/book_meta_fields.png" />
                     </section>
                     <section>
                         <p>All these extra properties are saved as post_meta. </p>
