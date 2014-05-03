@@ -246,13 +246,25 @@ function revealInit() {
         }
     });
     
-    Reveal.addEventListener( 'slidechanged', function( event ) {
+    Reveal.addEventListener( 'ready', function( event ) {
     // event.previousSlide, event.currentSlide, event.indexh, event.indexv
     //console.log(event.currentSlide);
     if($(event.currentSlide).hasClass('owl')) {
         
         DEMOS.startOwlCarousel();
     }
+    } );
+     Reveal.addEventListener( 'slidechanged', function( event ) {
+    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+    //console.log(event.currentSlide);
+    if($(event.currentSlide).hasClass('owl')) {
+        
+        DEMOS.startOwlCarousel();
+    } else {
+        
+        $("#owl-demo").owl.destroy();
+    }
+    
     
 } );
 }
