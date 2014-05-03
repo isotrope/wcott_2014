@@ -10,7 +10,7 @@ get_header();
     <main id="main" class="site-main" role="main">
 
         <section class="page-main-content">
-            <?php while ( have_posts() ) : the_post(); ?>
+            <?php while (have_posts()) : the_post(); ?>
                 <div class="inner">
                     <h1 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
                     <div class="entry-content"><?php the_content(); ?></div>
@@ -35,15 +35,15 @@ get_header();
             );
 
             // The Query
-            $the_query = new WP_Query( $args );
+            $the_query = new WP_Query($args);
             ?>
 
-            <?php if ( $the_query->have_posts() ) : ?>
+            <?php if ($the_query->have_posts()) : ?>
                 <section class="section-fifteen-latest-books inner clear">
 
                     <!-- the loop -->
                     <?php
-                    while ( $the_query->have_posts() ) {
+                    while ($the_query->have_posts()) {
 
                         //prep the_post()
                         $the_query->the_post();
@@ -52,45 +52,46 @@ get_header();
                         $post_id = get_the_ID();
 
                         //Fetch the book thumbnail if there is one
-                        $book_thumb = get_the_post_thumbnail( $post_id, 'book-cover', array( 'itemprop' => 'image' ) );
+                        $book_thumb = get_the_post_thumbnail($post_id, 'book-cover', array('itemprop' => 'image'));
 
                         //Fetch the Book's Author name
-                        $author = get_post_meta( $post_id, '_books_author', true );
+                        $author = get_post_meta($post_id, '_books_author', true);
 
                         //Fetch the Book's Author Twitter handle
-                        $author_twitter = get_post_meta( $post_id, '_books_author_twitter', true );
+                        $author_twitter = get_post_meta($post_id, '_books_author_twitter', true);
 
                         //Fetch the Book publisher's name
-                        $publisher = get_post_meta( $post_id, '_books_publisher', true );
+                        $publisher = get_post_meta($post_id, '_books_publisher', true);
 
                         //Fetch the Book publisher's URL
-                        $publisher_url = get_post_meta( $post_id, '_books_publisher_url', true );
+                        $publisher_url = get_post_meta($post_id, '_books_publisher_url', true);
 
                         //Fetch the publication date
-                        $date_published = get_post_meta( $post_id, '_books_date_published', true );
+                        $date_published = get_post_meta($post_id, '_books_date_published', true);
 
                         //Also grab the Year out of the publication date
-                        $date_published_year = date( 'Y', strtotime( $date_published ) );
+                        $date_published_year = date('Y', strtotime($date_published));
 
                         //Prepare an iso-8601 formatted version of the publication date
-                        $date_published_iso8601 = date( 'Y-m-d', strtotime( $date_published ) );
+                        $date_published_iso8601 = date('Y-m-d', strtotime($date_published));
                         ?>
                         <article class="book" itemscope itemtype="http://schema.org/Book" data-url="<?php the_permalink(); ?>">
-                            <?php if ( $book_thumb ) { ?>
+                            <?php if ($book_thumb) { ?>
                                 <div class="book-thumbnail"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php echo $book_thumb; ?></a></div>
                             <?php } ?>
 
                             <div class="book-info">
                                 <h2 class="book-title" itemprop="name"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 
-                                <?php
-                                if ( $author ) {
-                                    if ( $author_twitter ) {
-                                        ?>
-                                        <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <a href="https://twitter.com/<?php echo $author_twitter; ?>"><?php echo $author; ?></a></div>
-                                    <?php } else { ?>
-                                        <div class="book-author" itemprop="author"><?php _ex( 'by', 'Book page "by Author"', 'wcott2014' ); ?> <?php echo $author; ?></div>
-                                    <?php } ?>
+                                <?php if ($author) { ?>
+                                    <div class="book-author" itemprop="author">
+                                        <?php _ex('by', 'Book page "by Author"', 'wcott2014'); ?>
+                                        <?php if ($author_twitter) { ?>
+                                            <a href="https://twitter.com/<?php echo $author_twitter; ?>"><?php echo $author; ?></a>
+                                        <?php } else { ?>
+                                            <?php echo $author; ?>
+                                        <?php } ?>
+                                    </div>
                                 <?php } ?>
 
                                 <div class="book-content" itemprop="description"><?php the_content(); ?></div>
@@ -98,8 +99,8 @@ get_header();
 
 
                                 <?php
-                                if ( $publisher ) {
-                                    if ( $publisher_url ) {
+                                if ($publisher) {
+                                    if ($publisher_url) {
                                         ?>
                                         <div class="book-publisher" itemprop="publisher"><a href="<?php echo $publisher_url; ?>"><?php echo $publisher; ?></a></div>
                                     <?php } else { ?>
@@ -107,7 +108,7 @@ get_header();
                                     <?php } ?>
                                 <?php } ?>
 
-                                <?php if ( $date_published ) { ?>
+                                <?php if ($date_published) { ?>
                                     <div class="book-year" itemprop="datePublished" content="<?php echo $date_published_iso8601; ?>"><?php echo $date_published; ?></div>
                                 <?php } ?>
                             </div>
@@ -121,7 +122,7 @@ get_header();
 
             <?php else: ?>
                 <div class="inner">
-                    <p><?php _e( 'Sorry, no posts matched your criteria.', 'wcott2014' ); ?></p>
+                    <p><?php _e('Sorry, no posts matched your criteria.', 'wcott2014'); ?></p>
                 </div>
             <?php endif; ?>
         </div><!-- .bg-gray -->
@@ -130,5 +131,5 @@ get_header();
     </main><!-- #main -->
 </div><!-- #primary -->
 
-<?php // get_sidebar();   ?>
+<?php // get_sidebar();    ?>
 <?php get_footer(); ?>
