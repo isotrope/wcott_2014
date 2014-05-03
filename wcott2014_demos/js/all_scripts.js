@@ -1,28 +1,28 @@
-$( document ).ready( function( ) {
+$(document).ready(function( ) {
 
 
     revealInit();
 
-} );
+});
 
 
 
 
-var DEMOS = { };
+var DEMOS = {};
 DEMOS.toggleMasonry = function( ) {
-    var $toggler = $( '#toggle-masonry' ),
-        $container = $( '#masonry-container' ),
-        msnry;
+    var $toggler = $('#toggle-masonry'),
+            $container = $('#masonry-container'),
+            msnry;
 
-    if ( $container.attr( 'data-masonry-on' ) == "true" ) {
-        $container.masonry( 'destroy' );
-        $container.attr( 'data-masonry-on', "false" );
+    if ($container.attr('data-masonry-on') == "true") {
+        $container.masonry('destroy');
+        $container.attr('data-masonry-on', "false");
     } else {
-        $container.masonry( {
+        $container.masonry({
             columnWidth: 30,
             itemSelector: '.box'
-        } );
-        $container.attr( 'data-masonry-on', "true" );
+        });
+        $container.attr('data-masonry-on', "true");
 
     }
 
@@ -43,77 +43,85 @@ DEMOS.toggleMasonry = function( ) {
 
 
 DEMOS.toggleMasonryColour = function( ) {
-    var $boxes = $( '#masonry-container' ).find( '.box' ),
-        arrWhiteIndexes = [ 1, 3, 5, 6, 7, 9, 10, 12, 13, 14, 16, 18, 19, 20, 22 ],
-        arrBlueIndexes = [ 2, 17 ],
-        arrYellowIndexes = [ 4, 8, 10 ],
-        arrRedIndexes = [ 6, 15 ],
-        $arrWhite = $boxes.eq( arrWhiteIndexes[0] ),
-        $arrBlue = $boxes.eq( arrBlueIndexes[0] ),
-        $arrYellow = $boxes.eq( arrYellowIndexes[0] ),
-        $arrRed = $boxes.eq( arrRedIndexes[0] );
+    var $boxes = $('#masonry-container').find('.box'),
+            arrWhiteIndexes = [1, 3, 5, 6, 7, 9, 10, 12, 13, 14, 16, 18, 19, 20, 22],
+            arrBlueIndexes = [2, 17],
+            arrYellowIndexes = [4, 8, 10],
+            arrRedIndexes = [6, 15],
+            $arrWhite = $boxes.eq(arrWhiteIndexes[0]),
+            $arrBlue = $boxes.eq(arrBlueIndexes[0]),
+            $arrYellow = $boxes.eq(arrYellowIndexes[0]),
+            $arrRed = $boxes.eq(arrRedIndexes[0]);
 
 //console.log($arrBlue, $arrYellow, $arrRed);
 
-    $boxes.toggleClass( 'colour' );
+    $boxes.toggleClass('colour');
 
 //    for ( var i = 1; i < arrWhiteIndexes.length; i ++ ) { //Skipping the first one
 //        $arrWhite.push( $boxes.eq( arrWhiteIndexes[i] ) );
 //    }
-    for ( var i = 1; i < arrBlueIndexes.length; i ++ ) { //Skipping the first one
-        $arrBlue.push( $boxes.eq( arrBlueIndexes[i] ) );
+    for (var i = 1; i < arrBlueIndexes.length; i++) { //Skipping the first one
+        $arrBlue.push($boxes.eq(arrBlueIndexes[i]));
     }
-    for ( var i = 1; i < arrYellowIndexes.length; i ++ ) { //Skipping the first one
-        $arrYellow.push( $boxes.eq( arrYellowIndexes[i] ) );
+    for (var i = 1; i < arrYellowIndexes.length; i++) { //Skipping the first one
+        $arrYellow.push($boxes.eq(arrYellowIndexes[i]));
     }
-    for ( var i = 1; i < arrRedIndexes.length; i ++ ) { //Skipping the first one
-        $arrRed.push( $boxes.eq( arrRedIndexes[i] ) );
+    for (var i = 1; i < arrRedIndexes.length; i++) { //Skipping the first one
+        $arrRed.push($boxes.eq(arrRedIndexes[i]));
     }
 
-    $arrBlue.toggleClass( 'blue' );
-    $arrYellow.toggleClass( 'yellow' );
-    $arrRed.toggleClass( 'red' );
+    $arrBlue.toggleClass('blue');
+    $arrYellow.toggleClass('yellow');
+    $arrRed.toggleClass('red');
     //console.log($arrBlue, $arrYellow, $arrRed);
 
 };
 
 DEMOS.toggleSize = function( ) {
-    var $boxes = $( '#masonry-container' ).find( '.box' ),
-        $toggler = $( '#toggle-size' );
+    var $boxes = $('#masonry-container').find('.box'),
+            $toggler = $('#toggle-size');
 
-    $boxes.toggleClass( 'no-size' );
-    $( this ).toggleClass( 'active' );
+    $boxes.toggleClass('no-size');
+    $(this).toggleClass('active');
 //    $toggler.on( 'click', function( e ) {
 //        e.preventDefault( );
 //    } );
 };
 DEMOS.toggleFloat = function( ) {
-    var $boxes = $( '#masonry-container' ).find( '.box' ),
-        $toggler = $( '#toggle-float' );
+    var $boxes = $('#masonry-container').find('.box'),
+            $toggler = $('#toggle-float');
 
-    $boxes.toggleClass( 'floated' );
-    $( this ).toggleClass( 'active' );
+    $boxes.toggleClass('floated');
+    $(this).toggleClass('active');
 //    $toggler.on( 'click', function( e ) {
 //        e.preventDefault( );
 //    } );
 };
 
 DEMOS.toggleMondrian = function( ) {
-    if ( $( '#mondrian_pic' ).length == 0 ) {
-        $( 'body' ).append( '<img id="mondrian_pic" src="img/mondrian.png" />' );
+    if ($('#mondrian_pic').length == 0) {
+        $('body').append('<img id="mondrian_pic" src="img/mondrian.png" />');
     } else {
-        $( '#mondrian_pic' ).remove();
+        $('#mondrian_pic').remove();
     }
     console.log('toggling mondrian');
 };
 
 
+DEMOS.startOwlCarousel = function() {
+    $("#owl-demo").owlCarousel({
+        items: 3,
+        lazyLoad: true,
+        navigation: false,
+        autoPlay: 3000,
+transitionStyle : "goDown"
+    });
+};
 
 
 function revealInit() {
-    Reveal.initialize( {
+    Reveal.initialize({
         width: 1080,
-
         // Display controls in the bottom right corner
         controls: true,
         // Display a presentation progress bar
@@ -170,28 +178,28 @@ function revealInit() {
 
         dependencies: [
             // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
-            { src: 'lib/js/classList.js', condition: function() {
-                    return ! document.body.classList;
-                } },
+            {src: 'lib/js/classList.js', condition: function() {
+                    return !document.body.classList;
+                }},
             // Interpret Markdown in <section> elements
-            { src: 'js/libs/reveal.js-master/plugin/markdown/marked.js', condition: function() {
-                    return ! ! document.querySelector( '[data-markdown]' );
-                } },
-            { src: 'js/libs/reveal.js-master/plugin/markdown/markdown.js', condition: function() {
-                    return ! ! document.querySelector( '[data-markdown]' );
-                } },
+            {src: 'js/libs/reveal.js-master/plugin/markdown/marked.js', condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }},
+            {src: 'js/libs/reveal.js-master/plugin/markdown/markdown.js', condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }},
             // Syntax highlight for <code> elements
-            { src: 'js/libs/reveal.js-master/plugin/highlight/highlight.js', async: true, callback: function() {
+            {src: 'js/libs/reveal.js-master/plugin/highlight/highlight.js', async: true, callback: function() {
                     hljs.initHighlightingOnLoad();
-                } },
+                }},
             // Zoom in and out with Alt+click
-            { src: 'js/libs/reveal.js-master/plugin/zoom-js/zoom.js', async: true, condition: function() {
-                    return ! ! document.body.classList;
-                } },
+            {src: 'js/libs/reveal.js-master/plugin/zoom-js/zoom.js', async: true, condition: function() {
+                    return !!document.body.classList;
+                }},
             // Speaker notes
-            { src: 'js/libs/reveal.js-master/plugin/notes/notes.js', async: true, condition: function() {
-                    return ! ! document.body.classList;
-                } },
+            {src: 'js/libs/reveal.js-master/plugin/notes/notes.js', async: true, condition: function() {
+                    return !!document.body.classList;
+                }},
             // Remote control your reveal.js presentation using a touch device
             //{ src: 'js/libs/reveal.js-master/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
 
@@ -199,42 +207,52 @@ function revealInit() {
             //{ src: 'js/libs/reveal.js-master/plugin/math/math.js', async: true }
         ]
 
-    } );
+    });
 
 
-    Reveal.addEventListener( 'fragmentshown', function( event ) {
+    Reveal.addEventListener('fragmentshown', function(event) {
         // event.fragment = the fragment DOM element
-        var dataRun = $( event.fragment ).attr( 'data-run' );
-        console.log( event, dataRun );
+        var dataRun = $(event.fragment).attr('data-run');
+        console.log(event, dataRun);
 
-        if ( dataRun == 'DEMOS.toggleSize' ) {
+        if (dataRun == 'DEMOS.toggleSize') {
             DEMOS.toggleSize( );
-        } else if ( dataRun == 'DEMOS.toggleFloat' ) {
+        } else if (dataRun == 'DEMOS.toggleFloat') {
             DEMOS.toggleFloat( );
-        } else if ( dataRun == 'DEMOS.toggleMasonry' ) {
+        } else if (dataRun == 'DEMOS.toggleMasonry') {
             DEMOS.toggleMasonry( );
-        } else if ( dataRun == 'DEMOS.toggleMasonryColour' ) {
+        } else if (dataRun == 'DEMOS.toggleMasonryColour') {
             DEMOS.toggleMasonryColour( );
-        } else if ( dataRun == 'DEMOS.toggleMondrian' ) {
+        } else if (dataRun == 'DEMOS.toggleMondrian') {
             DEMOS.toggleMondrian( );
         }
-    } );
+    });
 
-    Reveal.addEventListener( 'fragmenthidden', function( event ) {
+    Reveal.addEventListener('fragmenthidden', function(event) {
         // event.fragment = the fragment DOM element
-        var dataRun = $( event.fragment ).attr( 'data-run' );
-        console.log( event, dataRun );
+        var dataRun = $(event.fragment).attr('data-run');
+        console.log(event, dataRun);
 
-        if ( dataRun == 'DEMOS.toggleSize' ) {
+        if (dataRun == 'DEMOS.toggleSize') {
             DEMOS.toggleSize( );
-        } else if ( dataRun == 'DEMOS.toggleFloat' ) {
+        } else if (dataRun == 'DEMOS.toggleFloat') {
             DEMOS.toggleFloat( );
-        } else if ( dataRun == 'DEMOS.toggleMasonry' ) {
+        } else if (dataRun == 'DEMOS.toggleMasonry') {
             DEMOS.toggleMasonry( );
-        } else if ( dataRun == 'DEMOS.toggleMasonryColour' ) {
+        } else if (dataRun == 'DEMOS.toggleMasonryColour') {
             DEMOS.toggleMasonryColour( );
-        } else if ( dataRun == 'DEMOS.toggleMondrian' ) {
+        } else if (dataRun == 'DEMOS.toggleMondrian') {
             DEMOS.toggleMondrian( );
         }
-    } );
+    });
+    
+    Reveal.addEventListener( 'slidechanged', function( event ) {
+    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+    //console.log(event.currentSlide);
+    if($(event.currentSlide).hasClass('owl')) {
+        
+        DEMOS.startOwlCarousel();
+    }
+    
+} );
 }

@@ -387,3 +387,11 @@ ______________________________________________*/
 .book-loop-results-1 .book .book-publisher {
   font-size: 14px;
 }
+#owl-demo {
+  height: 500px;
+  display: block;
+}
+#owl-demo .item img,
+#owl-demo .owl-item img {
+  max-width: auto;
+}
