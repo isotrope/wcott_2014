@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Down with Sliders! Show them everything!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta property="og:title" content="Down with Sliders! Show them everything!" />
+        <meta property="og:description" content="In an age of cluttered design and unintuitive interfaces, sliders have become a divisive subject …which is why we won’t actually talk about them at all! Instead, we’ll be covering two main topics: Presenting content in a tile-based layout with Masonry and how to actually get that content using WP_Query. At the end of this session, you should have the tools needed to present your latest posts with their featured images or Custom Post Types with custom attributes in a modern layout. You’ll also be a bit more familiar with the process of getting information to loop through." />
+        <meta property="og:image" content="http://isotrope.net/talks/wcott2014/img/covers/this_one_time.jpg">
 
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="js/libs/reveal.js-master/css/reveal.min.css">
@@ -72,8 +71,10 @@ and open the template in the editor.
                     <p class="fragment">Created by David DeSandro, a designer at Twitter</p>
                     <p class="fragment"><a href="http://desandro.com/">desandro.com</a></p>
 
-                    <p class="fragment">Masonry has a pair of siblings named Isotope and Packery. They’re released by Metafizzy <a href="http://metafizzy.co/">http://metafizzy.co/</a></p>
-
+                    <div class="fragment">
+                    <p>Masonry has a pair of siblings named Isotope and Packery. They’re released by Metafizzy <a href="http://metafizzy.co/">http://metafizzy.co/</a></p>
+                    <img class="no-border" src="img/metafizzy_logo.png"  />
+</div>
                 </section>
 
                 <section>
@@ -153,12 +154,13 @@ and open the template in the editor.
                         </div>
                 </section>
                 <section>
-                    <section><h1>It’s all a trick</h1>
+                    <section>
+                        <h1>It’s all a trick</h1>
                         <p class="fragment">Alright, confession time:</p>
                         <p class="fragment">That last page was a bit of a lie.</p>
                     </section>
                     <section>
-                        <p class="fragment">It does really use Masonry, but the elements were in a very specific order.</p>
+                        <p>It does really use Masonry, but the elements were in a very specific order.</p>
                         <h2 class="fragment">Why?</h2>
                         <ul>
                             <li class="fragment">Because Masonry always keeps the same order for your elements.</li>
@@ -167,7 +169,7 @@ and open the template in the editor.
                         </ul>
                     </section>
                     <section>
-                        <p>That’s where one of Masonry’s siblings comes in: Packery.</p>
+                        <p>That’s where one of Masonry’s siblings comes in: <a href="http://packery.metafizzy.co/">Packery</a>.</p>
                         <p>Packery uses a bin-packing algorithm. The trade-off is not knowing exactly where the elements will fall.</p>
                     </section>
                 </section>
@@ -179,7 +181,7 @@ and open the template in the editor.
                     </section>
                     <section>
                         <h4>Since it's already registered in WordPress, to <strong>turn on</strong> Masonry, we simply need to enqueue it</h4>
-                        <pre class="fragment"><code class="language-php" data-trim>
+                        <pre class="fragment"><code class="language-javascript" data-trim>
 &lt;?php
 function enqueue_masonry() {
     wp_enqueue_script( 'jquery-masonry' );
@@ -189,6 +191,13 @@ function enqueue_masonry() {
 add_action( 'wp_enqueue_scripts', 'enqueue_masonry' ); 
 ?&gt;
                     </code></pre>
+                    </section>
+                    <section>
+                        <h4>Last step:</h4>
+                        <p>Within a script file (or even inline if you don't mind feeling a little dirty), call Masonry on your container:</p>
+                       <pre class="fragment"><code class="language-" data-trim>
+                        $('#my-container').masonry();
+                        </code></pre>
                     </section>
                     <section>
                         <h2>Wanna know which other scripts already come ready to activate in WordPress?</h2>
